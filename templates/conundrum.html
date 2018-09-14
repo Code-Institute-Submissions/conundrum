@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <form method="POST">
-    <input type="text" name="answer" placeholder="Enter your answer here."/>
+    <input type="text" name="answer" id="answer" placeholder="Enter your answer here."/>
     <input type="submit" value="Submit"/>
 </form>
+
+<p> {{ data }}</p>
 
 
 {% endblock%}
