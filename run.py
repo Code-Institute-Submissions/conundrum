@@ -55,16 +55,12 @@ def get_answers(username):
         answers = read_file("data/answers.txt")
         
         for answer in (answers):
-            if counter() < answers[-2]:
-                if request.method == "POST":
-                    if request.form["answer"] == answers[0 + counter()]:
-                        
-                        write_file("data/count.txt", "a", "1\n")
-            else:
-                if request.method == "POST":
-                    if request.form["answer"] == answers[0 + counter()]:
-                        
-                        write_file("data/count.txt", "a", "")
+            
+            if request.method == "POST":
+                if request.form["answer"] == answers[0 + counter()]:
+                    
+                    write_file("data/count.txt", "a", "1\n")
+            
             return len(answers)
 
         
