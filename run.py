@@ -1,5 +1,6 @@
 import os 
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
+from multiprocessing import Value
 
 app = Flask(__name__)
 
@@ -15,96 +16,94 @@ def read_file(file_name):
         lines = file.read().splitlines()
         return lines
 
-#This keeps the count of how many lines are in the count.txt    
-def counter():
-    with open("data/count.txt", "r") as file:
-        count = file.readlines()
-        count = len(count)
-        print(count)
-        return count
-        
-def reset_counter():
-    if counter() == number_of_questions():
-        write_file("data/count.txt", "w", "")
-# Counts the number of questions in questions.txt
-
+# Counts the number of questions in questions.txt. Used to make a score or which question you're up to.
 def number_of_questions():
     number = read_file("data/questions.txt")
-    return len(number)-1
+    return len(number)-2
     
 # returns the question number, and number of questions displayed on the conundrum.html  
-def question_number():
-    return "Question {0} of {1}".format(counter()+ 1 , number_of_questions())
+def question_number(page_number):
+    return "Question {0} of {1}".format(page_number + 1 , number_of_questions()+1)
     
-def final_score():
-    return ": {0} out of {1}".format(counter() , number_of_questions())
+def final_score(score):
+    return ": {0} out of {1}".format(score , number_of_questions()+1)
         
 #Changes the question when the counter increases        
-def change_question():
+def change_question(page_number):
     questions = read_file("data/questions.txt")
-    return questions[0 + counter()]
+    return questions[0 + page_number]
     
 def leader_results():
     with open("data/leaderboard.txt", "r") as file:
-        result = file.readlines()
-        
-        return result
+        return file.readlines() 
 
-# This reads from answers.txt. If the form input is equal to the answers.txt answer, the count will increase by one.
-def get_answers(username):
-        answers = read_file("data/answers.txt")
-        
-        for answer in (answers):
-            
-            if request.method == "POST":
-                if request.form["answer"] == answers[0 + counter()]:
-                    
-                    write_file("data/count.txt", "a", "1\n")
-            
-            return len(answers)
+def empty_form():
+    empty = "A username is required to play."
+    return empty
 
-        
-            
 # Index Page--------------------------------------------------------------------
 @app.route('/', methods=["GET", "POST"])
 def index():
+    page_number = 0
+    score = 0
+    empty = empty_form()
+    if request.method == "POST":
+        if request.form["username"] == "":
+            return render_template("index.html", empty = empty)
+        
+        else:
+            return redirect(url_for('conundrum', username = request.form['username'], page_number = page_number, score = score ))
+        
+    return render_template("index.html")
+
+# Questions and answers page----------------------------------------------------
+
+@app.route('/conundrum/<username>/<int:page_number>/<int:score>', methods=["GET", "POST"])    
+
+def conundrum(username, page_number, score):
+    skip = page_number + 1
+    question = change_question(page_number)
+    question_num = question_number(page_number) 
     
     if request.method == "POST":
         
-        return redirect("conundrum/" + request.form["username"])
+        if page_number == number_of_questions():
+                answers = read_file("data/answers.txt")
+                
+                for answer in (answers):
+                    
+                    if request.form["answer"] == answers[0 + page_number]:
+                        page_number = page_number + 1
+                        score = score +1
+                        
+                        write_file("data/leaderboard.txt", "a", username + final_score(score) +"\n")
+                        return redirect(url_for('leaderboard', username = username, page_number = page_number, score = score))
         
-    return render_template("index.html")
-    
-
-# Questions and answers page----------------------------------------------------
-@app.route('/conundrum/<username>', methods=["GET", "POST"])    
-
-def conundrum(username):
-    counter()
-    
-    get_answers(username)
-    data = change_question()
-    question_num = question_number()
-    if counter() == number_of_questions():
-        if request.method == "POST":
-            write_file("data/leaderboard.txt", "a", username + final_score() +"\n")
-            return redirect('/conundrum/leaderboard/' + username)
-    elif counter() < number_of_questions(): 
-        
-        if request.method == "POST":
-            return redirect("conundrum/" + username)
+        elif page_number < number_of_questions():
             
-    return render_template("conundrum.html", data = data, question_num = question_num)
-    
+                answers = read_file("data/answers.txt")
+                
+                for answer in (answers):
+                    
+                    if request.form["answer"] == answers[0 + page_number]:
+                        page_number = page_number + 1
+                        score = score + 11
+                        score = str(score)
+                        score = score[0]
+                        score = int(score) * 10
+                                        
+                        return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
+                        
+        
+            
+    return render_template("conundrum.html", question = question, question_num = question_num, page_number = page_number, username = username, skip = skip, score = score)
     
 # Leaderboard ------------------------------------------------------------------
-@app.route('/conundrum/leaderboard/<username>')
-def leaderboard(username):
+@app.route('/conundrum/leaderboard/<username>/<int:page_number>/<int:score>')
+def leaderboard(username, page_number, score):
     results = leader_results()
     
-    reset_counter()
-    num = final_score()
-    return render_template("leaderboard.html", results = results)
-    
+    num = final_score(page_number)
+    return render_template("leaderboard.html", results = results, score = score)
 
 app.run(host=os.getenv('IP'),port=int(os.getenv('PORT')),debug=True)
