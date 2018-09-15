@@ -3,11 +3,18 @@
 
 
 <h2> {{ question_num }}</h2>
-<p> {{ data }}</p>
+<p> {{ question }}</p>
 <form method="POST">
     <input type="text" name="answer" id="answer" placeholder="Enter your answer here."/>
     <input type="submit" value="Submit"/>
 </form>
+
+{% if page_number < 4 %}
+<a href="/conundrum/{{ username }}/{{ skip }}/{{ score }}"><P>SKIP</P></a>
+{% endif %}
+{% if page_number == 4 %}
+<a href="/conundrum/leaderboard/{{ username }}/{{ skip }}/{{ score}}"><P>SKIP</P></a>
+{% endif %}
 
 
 
