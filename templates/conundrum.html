@@ -1,21 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+<!--Displays which question number the user is up to-->
 <h2> {{ question_num }}</h2>
+
+<!--The question the user will attempt to answer-->
 <p> {{ question }}</p>
+
+<!--The input field for the users answer-->
 <form method="POST">
     <input type="text" name="answer" id="answer" placeholder="Enter your answer here."/>
     <input type="submit" value="Submit"/>
 </form>
 
+<!--Skip: this will forward the page number by one and keep the score the same. If the page nuber is less than 4 the page will
+redirect to the conundrum page or if the page number is equal to 4 the page will redirect to tthe leaderboard page-->
 {% if page_number < 4 %}
 <a href="/conundrum/{{ username }}/{{ skip }}/{{ score }}"><P>SKIP</P></a>
 {% endif %}
 {% if page_number == 4 %}
-<a href="/conundrum/leaderboard/{{ username }}/{{ skip }}/{{ score}}"><P>SKIP</P></a>
+<a href="/conundrum/leaderboard/{{ username }}/{{ skip }}/{{ score}}"><P>Finish</P></a>
 {% endif %}
 
+<!--Incorrect answers -->
+{% for answer in incorrect %}
+<P>{{ answer }}</P>
+{% endfor %}
 
 
 {% endblock%}

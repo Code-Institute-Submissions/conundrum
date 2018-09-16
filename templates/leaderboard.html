@@ -1,10 +1,21 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>LeaderBoard</h1>
 
-{% for i in results%}
-<p>{{ i }}</p>
-{% endfor %}
+<table>
+    {% for i in results %} 
+    
+    <tr>
+        {% if loop.index <= 10 %}
+        <td>{{ loop.index }}</td>
+        <td>{{ i[0] }}</td>
+        
+        <td>{{ i[1] }}</td>
+        {% endif %}
+    </tr>
+   {% endfor %}
+</table>
+
+
 
 {% endblock%}
