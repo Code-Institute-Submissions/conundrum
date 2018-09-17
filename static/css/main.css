@@ -1,0 +1,162 @@
+/*Default Values*/
+
+.centering {
+    text-align: center;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.row {
+    margin-top: 50px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: yellow;
+}
+
+h1 {
+
+    margin: 15px 0 0 0;
+}
+
+h3 {
+    margin: 40px 0;
+}
+h4 {
+    margin: 0;
+    padding: 15px 0;
+}
+
+header {
+    text-align: center;
+    background-color: gray;
+}
+
+/*---------base.html------------*/
+
+/*---------header------------*/
+
+nav {
+    text-align: center;
+    width: 100%;
+}
+
+nav ul {
+    margin: 0 auto;
+    display: inline-block;
+    padding: 0;
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    padding: 15px;
+
+}
+
+a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+/*---------base.html------------*/
+
+/*---------footer------------*/
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background-color: gray;
+}
+
+
+/*Index.html*/
+
+#username-submit-form {
+    display: inline-block;
+}
+
+input {
+    margin: 5px;
+}
+
+#name-required {
+    color: red;
+}
+
+/*---------conundrum.html------------*/
+#question-number {
+    margin: 0;
+}
+.question-container {
+    background-color: #fff;
+    border: 1px solid #000;
+    min-height: 300px;
+}
+
+.question-head {
+    width: 100%;
+    background-color: gray;
+    text-align: center;
+}
+
+.question-body {
+    width: 100%;
+    padding: 15px;
+    
+}
+
+.answer-bottom {
+    position: absolute;
+    padding: 15px;
+    bottom: 0;
+    left: 20px;
+    right: 0;
+    
+}
+
+#answer {
+    width: 90%;
+}
+.skip-btn {
+    text-align: center;
+    display: inline-block;
+    width: 60px;
+    height: 25.5px;
+    background-color: rgb(221, 221, 221);
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 2px;
+    color: #000;
+}
+
+.guesses-table {
+    width: 100%;
+}
+
+tr {
+  width: 100%;  
+}
+td {
+    width: 33%;
+    padding: 2px;
+}
+
+.table-row-gray {
+    background-color: lightgray;
+}
+
+.table-row-darkgray {
+    background-color: #9A9E9B;
+}

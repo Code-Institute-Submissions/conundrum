@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Conundrum</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css" />
 </head>
+
 <body>
-    
-    {% block content %}
-    {% endblock %}
-    
+    <header>
+        <div class="container-fluid">
+            <h1>Conundrum</h1>
+            <nav>
+                <ul>
+                    <li><a href="">Home</a> </li>
+                    <li><a href="">LeaderBoard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container-fluid">
+        {% block content %} {% endblock %}
+    </main>
+    <footer class="container-fluid">
+
+    </footer>
 </body>
+
 </html>
