@@ -133,7 +133,7 @@ input {
 .skip-btn {
     text-align: center;
     display: inline-block;
-    width: 60px;
+    
     height: 25.5px;
     background-color: rgb(221, 221, 221);
     border: 1px solid rgb(221, 221, 221);

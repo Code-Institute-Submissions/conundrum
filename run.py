@@ -102,41 +102,61 @@ def conundrum(username, page_number, score):
     #This opens up a user named file for the users incorrect answers. created so other user incorrect answers don't add to another user. 
     incorrect = incorrect_answer(username)
     userfile = "data/incorrect_answers_" + username +".txt"
+    count = 0
+    
     if request.method == "POST":
         
         if page_number == number_of_questions():
-                answers = read_file("data/answers.txt")
+            answers = read_file("data/answers.txt")
+            
+            for answer in (answers):
                 
-                for answer in (answers):
+                if request.form["answer"] == answers[0 + page_number]:
+                    # Each time the question is answered correctly, os.remove(userfile) will delete the txt.file.
+                    os.remove(userfile)
+                    page_number = page_number + 1
+                    score = score + 10
+                    write_file("data/leaderboard.txt", "a", username + final_score(score) +"\n")
+                    return redirect(url_for('leaderboard', username = username, page_number = page_number, score = score))
                     
-                    if request.form["answer"] == answers[0 + page_number]:
-                        # Each time the question is answered correctly, os.remove(userfile) will delete the txt.file.
-                        os.remove(userfile)
-                        page_number = page_number + 1
-                        score = score + 10
-                        
-                        return redirect(url_for('leaderboard', username = username, page_number = page_number, score = score))
+                elif 'skip' in request.form:
+                    os.remove(userfile)
+                    page_number = page_number + 1
+                    write_file("data/leaderboard.txt", "a", username + final_score(score) +"\n")
+                    return redirect(url_for('leaderboard', username = username, page_number = page_number, score = score))
                     
-                    else:
-                        write_incorrect_answer(username)
-                        return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
+                elif request.form["answer"] == "":
+                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
+                    
+                else:
+                    write_incorrect_answer(username)
+                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
+                
         
         elif page_number < number_of_questions():
             
-                answers = read_file("data/answers.txt")
+            answers = read_file("data/answers.txt")
                 
-                for answer in (answers):
+            for answer in (answers):
+                
+                if request.form["answer"] == answers[0 + page_number]:
+                    os.remove(userfile)
+                    page_number = page_number + 1
+                    score = score + 10
+                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
                     
-                    if request.form["answer"] == answers[0 + page_number]:
-                        os.remove(userfile)
-                        page_number = page_number + 1
-                        score = score + 10
-                        return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
-                        
-                    else:
-                        write_incorrect_answer(username)
-                        return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))  
-                      
+                elif 'skip' in request.form:
+                    os.remove(userfile)
+                    page_number = page_number + 1
+                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = score)) 
+                    
+                elif request.form["answer"] == "":
+                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
+                    
+                else:
+                    write_incorrect_answer(username)
+                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
+        
     return render_template("conundrum.html", question = question, question_num = question_num, 
                                             page_number = page_number, username = username, skip = skip, 
                                             score = score, incorrect = incorrect, userfile= userfile)
@@ -144,7 +164,7 @@ def conundrum(username, page_number, score):
 # Leaderboard ------------------------------------------------------------------
 @app.route('/conundrum/leaderboard/<username>/<int:page_number>/<int:score>')
 def leaderboard(username, page_number, score):
-    write_file("data/leaderboard.txt", "a", username + final_score(score) +"\n")
+    
     results = leader_results()
     
     
