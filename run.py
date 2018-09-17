@@ -26,17 +26,17 @@ def change_question(page_number):
     questions = read_file("data/questions.txt")
     return questions[0 + page_number]
 
-def write_incorrect_answer():
-    file = write_file("data/incorrect_answers.txt", "a", request.form["answer"] + "\n")
+def write_incorrect_answer(username):
+    file = write_file("data/incorrect_answers_" + username +".txt", "a", request.form["answer"] + "\n")
     return file
-    
-def incorrect_answer():
-    with open("data/incorrect_answers.txt", "r") as file:
+
+def incorrect_answer(username):
+    with open("data/incorrect_answers_" + username +".txt", "a+") as file:
         lines = file.read().splitlines()
         return lines
         
-def clear_answers():
-    write_file("data/incorrect_answers.txt", "w", "")
+def clear_answers(username):
+    write_file("data/incorrect_answers_" + username +".txt", "w", "")
 
 def empty_form():
     empty = "A username is required to play."
@@ -68,6 +68,10 @@ def leader_results():
         print(result)
         return result
         
+def delete_file(username):
+    return os.remove(username)
+    
+        
     
 # Index Page--------------------------------------------------------------------
 @app.route('/', methods=["GET", "POST"])
@@ -89,11 +93,15 @@ def index():
 @app.route('/conundrum/<username>/<int:page_number>/<int:score>', methods=["GET", "POST"])    
 
 def conundrum(username, page_number, score):
+    
+    #If the skip button is clicked the page number gets + 1 and the score stays at it current score.
     skip = page_number + 1
     
     question = change_question(page_number)
     question_num = question_number(page_number) 
-    incorrect = incorrect_answer()
+    #This opens up a user named file for the users incorrect answers. created so other user incorrect answers don't add to another user. 
+    incorrect = incorrect_answer(username)
+    userfile = "data/incorrect_answers_" + username +".txt"
     if request.method == "POST":
         
         if page_number == number_of_questions():
@@ -102,13 +110,15 @@ def conundrum(username, page_number, score):
                 for answer in (answers):
                     
                     if request.form["answer"] == answers[0 + page_number]:
+                        # Each time the question is answered correctly, os.remove(userfile) will delete the txt.file.
+                        os.remove(userfile)
                         page_number = page_number + 1
                         score = score + 10
-                        clear_answers()
+                        
                         return redirect(url_for('leaderboard', username = username, page_number = page_number, score = score))
                     
                     else:
-                        
+                        write_incorrect_answer(username)
                         return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
         
         elif page_number < number_of_questions():
@@ -118,18 +128,18 @@ def conundrum(username, page_number, score):
                 for answer in (answers):
                     
                     if request.form["answer"] == answers[0 + page_number]:
+                        os.remove(userfile)
                         page_number = page_number + 1
                         score = score + 10
-                        clear_answers()                
                         return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
+                        
                     else:
-                        write_incorrect_answer()
+                        write_incorrect_answer(username)
                         return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))  
-        
-            
+                      
     return render_template("conundrum.html", question = question, question_num = question_num, 
                                             page_number = page_number, username = username, skip = skip, 
-                                            score = score, incorrect = incorrect)
+                                            score = score, incorrect = incorrect, userfile= userfile)
     
 # Leaderboard ------------------------------------------------------------------
 @app.route('/conundrum/leaderboard/<username>/<int:page_number>/<int:score>')

@@ -1,11 +1,15 @@
-{% extends 'base.html' %}
-{% block content %}
-<form method="POST">
-    <input type="text" name="username"/>
-    <input type="submit" value="Submit"/>
-</form>
+{% extends 'base.html' %} {% block content %}
 
 
-<p>{{ empty }}</p>
-
+    <div class="row">
+        <div class="col-xs-12, centering">
+            <h2>Welcome to Conundrum</h2>
+            <p>Enter a username to start playing</p>
+            <form id="username-submit-form" method="POST">
+                <input type="text" name="username" /><br>
+                <input type="submit" value="Start" />
+            </form>
+            <p id="name-required">{{ empty }}</p>
+        </div>
+    </div>
 {% endblock%}
