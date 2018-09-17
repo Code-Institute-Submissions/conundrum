@@ -128,7 +128,7 @@ def conundrum(username, page_number, score):
                 elif request.form["answer"] == "":
                     return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
                     
-                else:
+                elif request.form["answer"] != answers[0 + page_number]:
                     write_incorrect_answer(username)
                     return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
                 
@@ -153,7 +153,7 @@ def conundrum(username, page_number, score):
                 elif request.form["answer"] == "":
                     return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
                     
-                else:
+                elif request.form["answer"] != answers[0 + page_number]:
                     write_incorrect_answer(username)
                     return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
         
