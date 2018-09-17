@@ -29,6 +29,11 @@ def change_question(page_number):
 def write_incorrect_answer(username):
     file = write_file("data/incorrect_answers_" + username +".txt", "a", request.form["answer"] + "\n")
     return file
+    
+def read_incorrect_answers(username):
+    with open("data/incorrect_answers_" + username +".txt", "r") as file:
+        lines = file.read().splitlines()
+        return lines
 
 def incorrect_answer(username):
     with open("data/incorrect_answers_" + username +".txt", "a+") as file:
@@ -100,9 +105,9 @@ def conundrum(username, page_number, score):
     question = change_question(page_number)
     question_num = question_number(page_number) 
     #This opens up a user named file for the users incorrect answers. created so other user incorrect answers don't add to another user. 
-    incorrect = incorrect_answer(username)
+    incorrect_answer(username)
+    incorrect = read_incorrect_answers(username)
     userfile = "data/incorrect_answers_" + username +".txt"
-    count = 0
     
     if request.method == "POST":
         
@@ -169,5 +174,5 @@ def leaderboard(username, page_number, score):
     
     
     return render_template("leaderboard.html", results = results, score = score)
-
-app.run(host=os.getenv('IP'),port=int(os.getenv('PORT')),debug=True)
+if __name__ == '__main__':
+    app.run(host=os.getenv('IP'),port=int(os.getenv('PORT')),debug=True)
