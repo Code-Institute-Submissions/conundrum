@@ -1,5 +1,5 @@
-body{
-   
+body {
+
     height: 100%;
     background-image: url(../images/maze5.jpg);
     background-size: cover;
@@ -15,13 +15,16 @@ h1 {
     font-weight: bold;
     font-family: "nanum gothic", sans-serif;
 }
+
 h2 {
     color: #000;
 }
+
 h3 {
     margin: 40px 0;
     color: #fff;
 }
+
 h4 {
     margin: 0;
     padding: 15px 0;
@@ -47,12 +50,12 @@ h4 {
 
 /*---------base.html------------*/
 
-
 /*---------header------------*/
+
 header {
     text-align: center;
-    background-color: rgba(0,0,0,0.7);
-    padding:10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
 }
 
 .maze-icon {
@@ -62,7 +65,7 @@ header {
     width: 60px;
     height: 60px;
     float: left;
-    
+
 }
 
 nav {
@@ -79,7 +82,7 @@ nav ul {
 nav ul li {
     list-style: none;
     display: inline-block;
-    padding:0 10px 0 10px;
+    padding: 0 10px 0 10px;
 }
 
 a:hover {
@@ -94,17 +97,21 @@ nav ul li a {
 
 /*---------main------------*/
 
-
-
 /*---------footer------------*/
 
 footer {
-    
-    
+
     background-color: #000;
-    position: fixed;
     width: 100%;
-    bottom: 0;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    footer {
+        position: absolute;
+        bottom: 0;
+        margin: 0;
+    }
 }
 
 #github-icon {
@@ -125,9 +132,9 @@ footer {
 
 .username-container {
     display: inline-block;
-    background-color: rgba(255,255,255,.9);
+    background-color: rgba(255, 255, 255, .9);
     padding: 15px;
-    margin: 50px 0 0 0 ;
+    margin: 50px 0 0 0;
     border-radius: 5px;
 }
 
@@ -140,22 +147,90 @@ input[name=username] {
 }
 
 /*---------conundrum.html------------*/
+
+.game-rules-hidden {
+    display: none;
+}
+
+.game-rules-show {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #000;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.game-rules-head {
+    background-color: gray;
+}
+
+.game-rules-heading {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.game-rules ul {
+    padding: 25px;
+}
+
+.conundrum-row-1 {
+    margin-top: 2.5%;
+}
+
+.rule-points-guesses {
+    background-color: gray;
+    padding: 10px 0 0 0;
+
+    border-radius: 10px;
+    display: inline-block;
+}
+
+@media (min-width: 992px) {
+    .rule-points-guesses {
+        width: 45%;
+        margin-left: 27.5%;
+    }
+}
+
+.rules-btn {
+    border-radius: 7px;
+}
+
+.conundrum-row {
+    margin-top: 2.5%;
+}
+
 #question-number {
     margin: 0;
 }
+
 .question-container {
     background-color: #fff;
     min-height: 335px;
-    margin: 50px 0 0 0 ;
     border-radius: 5px;
     overflow: hidden;
+}
+
+
+@media (max-width: 767px) {
+    .question-container {
+        margin-bottom: 20px;
+    }
 }
 
 .question-head {
     width: 100%;
     background-color: gray;
     text-align: center;
-    
+}
+
+.fa-question {
+    padding-top: 15px;
 }
 
 .question-body {
@@ -164,31 +239,24 @@ input[name=username] {
     min-height: 100px;
 }
 
+
+
 .answer-bottom {
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
     right: 0;
 }
 
 input[name=answer] {
-    width: 250px;
+    width: 90%;
     margin-bottom: 10px;
 }
 
 input[name=submit] {
-    
+
     margin-right: 20px;
 }
-
-.score {
-    border: 1px solid #000;
-    border-radius: 5px;
-    display: inline-block;
-    margin-top: 10px;
-    padding: 3px 5px;
-}
-
 
 .guesses-body {
     width: 100%;
@@ -207,33 +275,46 @@ input[name=submit] {
 }
 
 tr {
-  width: 100%;  
+    width: 100%;
 }
 
 /*---------learderboard.html------------*/
+
 .leaderboard-heading {
     color: #fff;
 }
+
 .user-score {
     font-weight: bold;
     color: #fff;
 }
 
+.leader-board-table {
+    width: 60%;
+    margin: 0 auto;
+    background-color: gray;
+}
+
+@media (max-width: 767px) {
+    .leader-board-table {
+        width: 80%;
+        margin-bottom: 150px;
+    }
+}
+
 .table-row {
     margin-bottom: 30px;
 }
+
 .leader-board-table {
     border-radius: 10px;
     border: 5px solid #fff;
     overflow: hidden;
 }
 
-
-
 .leader-board-table td {
     width: 33%;
-    padding: 2px;
-    
+    padding: 3px 0 3px 0;
 }
 
 .table-row-gray {
@@ -244,22 +325,14 @@ tr {
     background-color: #fff;
 }
 
-
-
 #leaderboard-heading-td {
     width: 100%;
 }
+
 .top-players {
-    margin:0;
-    padding:10px 0;
+    margin: 0;
+    padding: 10px 0;
     font-size: 20px;
     font-weight: bold;
     border-bottom: 2px solid #000;
-}
-
-.leader-board-table {
-    width: 60%;
-    margin: 0 auto;
-    background-color: gray;
-    
 }

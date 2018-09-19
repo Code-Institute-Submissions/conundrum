@@ -1,8 +1,38 @@
 {% extends 'base.html' %} {% block content %}
 
+<div class="row conundrum-row-1">
+    <div class="rule-points-guesses col-xs-offset-3 col-xs-6 col-sm-offset-1 col-sm-10">
+        
+        <div class="centering col-xs-12 col-sm-4">
+            <button class="rules-btn">Rules</button>
+        </div>
+        
+        <div class="centering col-xs-12 col-sm-4">
+            <p><b>Score: {{score}} points</b></p>
+        </div>
+        <div class="negative-points centering col-xs-12 col-sm-4">
+            <p><b>Guesses remaining:</b> {{ guesses_remaining }}</p>
+        </div>
+    </div>
+</div>
 
-<div class="row">
-    <div class="col-sm-offset-3 col-sm-3">
+<div class="row conundrum-row">
+    <div id="game-rules" class="game-rules-hidden">
+        <div class="game-rules-head">
+            <p class="centering game-rules-heading">Game rules</p>
+        </div>
+        <ul>
+            <li>A correct answer is worth 10 points.</li>
+            <li>Skipping a question deducts 2 points from the score.</li>
+            <li>An incorrect answer deducts 1 point from the score.</li>
+            <li>You have 10 guesses before being directed to the next question</li>
+            <li>Good Luck!</li>
+        </ul>
+    </div>
+
+    
+
+    <div class="col-sm-offset-1 col-sm-5 col-lg-offset-3 col-lg-3 ">
         <div class="question-container">
 
             <div class="question-head">
@@ -25,21 +55,14 @@
                         <input type="submit" name="skip" value="Skip" />
                     </form>
                 </div>
-                <div class="centering ">
-                <p class="score"><b>Score: {{score}} points</b></p>
-            </div>
-            
-            <div class="negative-points centering">
-                <p><b>Guesses remaining:</b> {{ guesses_remaining }}</p>
-            </div>
-            </div>
-            
-            
-                
 
+
+
+            </div>
         </div>
     </div>
-    <div class="col-sm-3">
+
+    <div class="col-sm-5 col-lg-3">
         <div class="question-container">
             <div class="question-head">
 
