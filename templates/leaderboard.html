@@ -1,21 +1,56 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} .
+<div class="row">
+    <div class="col-xs-12 centering">
 
-<h1>LeaderBoard</h1>
+        <h2 class='leaderboard-heading'>LeaderBoard</h2>
+    </div>
+</div>
+<div class="row table-row centering">
 
-<table>
-    {% for i in results %} 
-    
-    <tr>
-        {% if loop.index <= 10 %}
-        <td>{{ loop.index }}</td>
-        <td>{{ i[0] }}</td>
+
+
+    <table class="leader-board-table">
         
-        <td>{{ i[1] }}</td>
+        <tr>
+            <td></td>
+            <td><p class="top-players">Top Players</p></td>
+            <td></td>
+        </tr>
+        {% if username != "user" %}
+        <tr>
+            <td></td>
+            <td><b><p class="user-score"> Your score: {{score }} out of {{ total_points }}</p></b></td>
+            <td></td>
+        </tr>
         {% endif %}
-    </tr>
-   {% endfor %}
-</table>
 
+        <tr>
+            <td><b># Rank</b></td>
+            <td><b>Player</b></td>
+            <td><b>Score </b></td>
+        </tr>
+
+        {% for i in results %} 
+        {% if loop.index <=10 %}
+        {% if loop.index % 2==0 %} <tr class="table-row-gray">
+            <td><b># {{ loop.index }}</b></td>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            </tr>
+
+            {% endif %} 
+            {% if loop.index % 2 == 1 %}
+            <tr class="table-row-white">
+                <td><b># {{ loop.index }}</b></td>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+            </tr>
+            {% endif %} 
+            {% endif %}
+            </tr>
+            {% endfor %}
+    </table>
+</div>
 
 
 {% endblock%}

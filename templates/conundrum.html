@@ -10,21 +10,32 @@
                 <h4 id="question-number"> {{ question_num }}</h4>
             </div>
 
-            <div class="question-body">
+            <div class="question-body centering">
+
                 <!--The question the user will attempt to answer-->
                 <p><b>{{ question }}</b> </p>
             </div>
 
             <div class="answer-bottom">
                 <!--The input field for the users answer-->
-                <form method="POST">
-                    <input type="text" name="answer" id="answer" placeholder="Enter your answer here." /><br>
-                    <input type="submit" name="submit" value="Submit" />
-                    <input type="submit" name="skip" value="Skip" />
-                </form>
-                
-
+                <div class="centering">
+                    <form method="POST" class="inline-block">
+                        <input type="text" name="answer" placeholder="Enter your answer here." /><br>
+                        <input type="submit" name="submit" value="Submit" />
+                        <input type="submit" name="skip" value="Skip" />
+                    </form>
+                </div>
+                <div class="centering ">
+                <p class="score"><b>Score: {{score}} points</b></p>
             </div>
+            
+            <div class="negative-points centering">
+                <p><b>Guesses remaining:</b> {{ guesses_remaining }}</p>
+            </div>
+            </div>
+            
+            
+                
 
         </div>
     </div>
@@ -35,31 +46,26 @@
                 <!--Displays which question number the user is up to-->
                 <h4> Incorrect guesses</h4>
             </div>
-            <div class="question-body centering">
+            <div class="guesses-body centering">
                 <table class="guesses-table">
-                    {% for answer in incorrect %}
-                    {% if loop.index % 2 == 0 %}
+                    {% for answer in incorrect %} {% if loop.index % 2 == 0 %}
                     <tr class="table-row-gray">
-                        <td>{{ loop.index }}. </td>
+                        <td># {{ loop.index }}. </td>
                         <td>{{ answer }}</td>
                         <td></td>
                     </tr>
-                    {% endif %}
-                    {% if loop.index % 2 == 1 %}
-                    <tr class="table-row-darkgray">
-                        <td>{{ loop.index }}. </td>
+                    {% endif %} {% if loop.index % 2 == 1 %}
+                    <tr class="table-row-white">
+                        <td># {{ loop.index }}. </td>
                         <td>{{ answer }}</td>
                         <td></td>
                     </tr>
-                    {% endif %}
-                    {% endfor %}
+                    {% endif %} {% endfor %}
                 </table>
             </div>
             <!--Incorrect answers -->
-
-
-
         </div>
     </div>
 </div>
+
 {% endblock%}
