@@ -1,3 +1,33 @@
+body{
+   
+    height: 100%;
+    background-image: url(../images/maze5.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: "rubik", sans-serif;
+    color: #000;
+}
+
+h1 {
+    color: rgb(31, 119, 180);
+    margin: 15px 0 0 0;
+    font-weight: bold;
+    font-family: "nanum gothic", sans-serif;
+}
+h2 {
+    color: #000;
+}
+h3 {
+    margin: 40px 0;
+    color: #fff;
+}
+h4 {
+    margin: 0;
+    padding: 15px 0;
+    color: #000;
+}
+
 /*Default Values*/
 
 .centering {
@@ -9,36 +39,31 @@
 }
 
 .row {
-    margin-top: 50px;
-}
-
-body {
     margin: 0;
-    padding: 0;
-    background-color: yellow;
 }
 
-h1 {
 
-    margin: 15px 0 0 0;
-}
 
-h3 {
-    margin: 40px 0;
-}
-h4 {
-    margin: 0;
-    padding: 15px 0;
-}
-
-header {
-    text-align: center;
-    background-color: gray;
-}
 
 /*---------base.html------------*/
 
+
 /*---------header------------*/
+header {
+    text-align: center;
+    background-color: rgba(0,0,0,0.7);
+    padding:10px;
+}
+
+.maze-icon {
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    width: 60px;
+    height: 60px;
+    float: left;
+    
+}
 
 nav {
     text-align: center;
@@ -54,42 +79,60 @@ nav ul {
 nav ul li {
     list-style: none;
     display: inline-block;
-    padding: 15px;
-
+    padding:0 10px 0 10px;
 }
 
 a:hover {
     text-decoration: none;
-    color: #000;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #000;
+    color: #fff;
+    font-weight: bold;
 }
 
-/*---------base.html------------*/
+/*---------main------------*/
+
+
 
 /*---------footer------------*/
 
 footer {
-    position: absolute;
+    
+    
+    background-color: #000;
+    position: fixed;
+    width: 100%;
     bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background-color: gray;
 }
 
+#github-icon {
+    color: #fff;
+    font-size: 35px;
+    margin-top: 10px;
+}
 
-/*Index.html*/
+.web-developer {
+    color: #fff;
+}
+
+/*---------Index.htm--------------l*/
 
 #username-submit-form {
     display: inline-block;
 }
 
-input {
-    margin: 5px;
+.username-container {
+    display: inline-block;
+    background-color: rgba(255,255,255,.9);
+    padding: 15px;
+    margin: 50px 0 0 0 ;
+    border-radius: 5px;
+}
+
+input[name=username] {
+    margin-bottom: 10px;
 }
 
 #name-required {
@@ -102,44 +145,62 @@ input {
 }
 .question-container {
     background-color: #fff;
-    border: 1px solid #000;
-    min-height: 300px;
+    min-height: 335px;
+    margin: 50px 0 0 0 ;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .question-head {
     width: 100%;
     background-color: gray;
     text-align: center;
+    
 }
 
 .question-body {
     width: 100%;
     padding: 15px;
-    
+    min-height: 100px;
 }
 
 .answer-bottom {
     position: absolute;
-    padding: 15px;
     bottom: 0;
-    left: 20px;
+    left: 0;
     right: 0;
-    
 }
 
-#answer {
-    width: 90%;
+input[name=answer] {
+    width: 250px;
+    margin-bottom: 10px;
 }
-.skip-btn {
-    text-align: center;
-    display: inline-block;
+
+input[name=submit] {
     
-    height: 25.5px;
-    background-color: rgb(221, 221, 221);
-    border: 1px solid rgb(221, 221, 221);
-    border-radius: 2px;
-    color: #000;
+    margin-right: 20px;
 }
+
+.score {
+    border: 1px solid #000;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 5px;
+}
+
+
+.guesses-body {
+    width: 100%;
+    min-height: 100px;
+}
+
+.guesses-table td {
+    width: 33%;
+    font-weight: bold;
+    padding: 3px 0;
+}
+
 
 .guesses-table {
     width: 100%;
@@ -148,15 +209,57 @@ input {
 tr {
   width: 100%;  
 }
-td {
+
+/*---------learderboard.html------------*/
+.leaderboard-heading {
+    color: #fff;
+}
+.user-score {
+    font-weight: bold;
+    color: #fff;
+}
+
+.table-row {
+    margin-bottom: 30px;
+}
+.leader-board-table {
+    border-radius: 10px;
+    border: 5px solid #fff;
+    overflow: hidden;
+}
+
+
+
+.leader-board-table td {
     width: 33%;
     padding: 2px;
+    
 }
 
 .table-row-gray {
     background-color: lightgray;
 }
 
-.table-row-darkgray {
-    background-color: #9A9E9B;
+.table-row-white {
+    background-color: #fff;
+}
+
+
+
+#leaderboard-heading-td {
+    width: 100%;
+}
+.top-players {
+    margin:0;
+    padding:10px 0;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+}
+
+.leader-board-table {
+    width: 60%;
+    margin: 0 auto;
+    background-color: gray;
+    
 }
