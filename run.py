@@ -1,7 +1,5 @@
 import os 
 from flask import Flask, render_template, redirect, request, url_for
-import requests
-from multiprocessing import Value
 
 app = Flask(__name__)
 
