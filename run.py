@@ -99,9 +99,13 @@ def leader_results():
     name_and_score = zip(name,score)
       
     result = sorted(name_and_score, key = sort_score, reverse=True)
-    print(result)
     return result
-
+    
+# Shows the individual users score on the leaderboard screen.  
+def leaderboard_final_score():
+    lines = read_file("data/leaderboard.txt")
+    return lines
+    
 # This clears the incorrect answers from the users file.
 def clear_Incorrect_answers(username):
     write_file("data/incorrect_answers_" + username +".txt", "w", "")
@@ -114,12 +118,15 @@ def index():
     
     
     if request.method == "POST":
-        if request.form["username"] == "":    #If the username field is empty return a string.
+        # If the username field is empty, redirect to the same page and return a string, empty = "A username is required to play.".
+        if request.form["username"] == "":    
             return render_template("index.html", empty = empty_user_form())
         
         else:
-            create_incorrect_answer_form(request.form["username"])   #creates a new file for for the user in their name.
-            clear_Incorrect_answers(request.form["username"])        #Clears any answers before entering. In case a user with the same name already created a file.
+            # Creates a new file for the user in their name. Clears any answers before entering in case a user with the same name already created a file.
+            # Redirect to the conundrum page
+            create_incorrect_answer_form(request.form["username"])   
+            clear_Incorrect_answers(request.form["username"])        
             return redirect(url_for('conundrum', username = request.form['username'], page_number = page_number, score = score ))
         
     return render_template("index.html")
@@ -129,70 +136,68 @@ def index():
 @app.route('/conundrum/<username>/<int:page_number>/<int:score>', methods=["GET", "POST"])    
 
 def conundrum(username, page_number, score):
-    #This opens up a user named file for the users incorrect answers. created so other user incorrect answers don't add to another user. 
     
     userfile = "data/incorrect_answers_" + username +".txt"   # goes with os.remove(userfile) to delete the user file when the leaderboard is reached.
+    
     if request.method == "POST":
-        
-        if page_number == number_of_questions():         # If the page number is equal to the total amount of questions
-            answers = read_file("data/answers.txt")      # read from the answers
+            
+            # Read the answers from the answers.txt file.
+            answers = read_file("data/answers.txt")      
             
             for answer in (answers):
                 
-                if request.form["answer"] == answers[0 + page_number] and not 'skip' in request.form: # If the answer entered into the answer input box is the same as the index of answers.txt 
-                    score = score + 10   # Add 10 points to the score
-                    os.remove(userfile)  # remove the user incorrect answers file
-                    final_score(username, score)    #This writes the final to the leaderboard.txt file 
-                    return redirect(url_for('leaderboard', username = username, score = score))
+                if request.form["answer"] == answers[0 + page_number] and not 'skip' in request.form: 
+                    # If the answer entered into the answer input box is the same as in the index position of answers.txt. Clear the user incorrect answers file
+                    clear_Incorrect_answers(username) 
                     
-                elif 'skip' in request.form or number_of_incorrect_answers(username) == 9:   #If the skip botton is pressed or the user has had 9 incorrect answers, redirect to leaderboard.html .
-                    #If the score is already at 0 remain at 0 and dont gain negative points, otherwise 2 points are deducted.
-                    os.remove(userfile) 
-                    final_score(username, score)
-                    return redirect(url_for('leaderboard', username = username, score = negative_points_two(score)))
+                    if page_number < number_of_questions():
+                        #If the page number(question number) is less than the total amount of questions, add the positive scores and increase the page number
+                        #so the question changes. redirect to the same page
+                        return redirect(url_for('conundrum', username = username, page_number = page_number + 1, score = score + 10))
+                        
+                    else:  
+                        # If the page number(question number) is equal to the total amount of questions, add the positive scores write to the leaderboard file and 
+                        # redirect to the leaderboard page.
+                        score = score + 10   # Add 10 points to the score
+                        final_score(username, score)    #This writes the final to the leaderboard.txt file 
+                        return redirect(url_for('leaderboard', username = username, score = score))
+                
+                elif 'skip' in request.form or number_of_incorrect_answers(username) == 9:   
+                    #If the skip botton is pressed or the user has had 9 incorrect answers, clear the incorrect answers
+                    clear_Incorrect_answers(username)
                     
-                elif request.form["answer"] == "": #if the input field is empty, redirect to the same page
+                    if page_number < number_of_questions():
+                        #If the page number(question number) is less than the total amount of questions. add negative scores and increase the page number
+                        #so the question changes. redirect to the same page
+                        return redirect(url_for('conundrum', username = username, page_number = page_number + 1, score = negative_points_two(score)))
+                        
+                    else:
+                        # If the page number(question number) is equal to the total amount of questions, take the negative scores, write to the leaderboard file and 
+                        # redirect to the leaderboard page.
+                        score = negative_points_two(score)
+                        final_score(username, score)
+                        return redirect(url_for('leaderboard', username = username))
+                    
+                elif request.form["answer"] == "": #if the input field is empty, redirect to the same page.
                     return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
                     
-                elif request.form["answer"] != answers[0 + page_number]: # If the guess is not equal to the answers. 1 point is deducted from the score unless the score is already 0 
+                elif request.form["answer"] != answers[0 + page_number]: 
+                    # If the guess is not equal to the answer. Take negative points, write the incorrect answer to the users incorrect answer form and redirect to the
+                    #same page
                     
                     write_incorrect_answer(username)  #Writes the incorrect answers to the users incorrect answer file.
                     return redirect(url_for('conundrum', username = username, page_number = page_number, score = negative_points_one(score)))
-                
-        
-        elif page_number < number_of_questions(): # If the page number is less the total amount of questions
-            
-            answers = read_file("data/answers.txt")
-                
-            for answer in (answers):
-                
-                if request.form["answer"] == answers[0 + page_number] and not 'skip' in request.form:
-                    clear_Incorrect_answers(username)
                     
-                    return redirect(url_for('conundrum', username = username, page_number = page_number + 1, score = score + 10))
-                    
-                elif 'skip' in request.form or number_of_incorrect_answers(username) == 9:
-                    negative_points_two(score)
-                    return redirect(url_for('conundrum', username = username, page_number = page_number + 1, score = negative_points_two(score)))
-                    
-                elif request.form["answer"] == "":
-                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = score))
-                    
-                elif request.form["answer"] != answers[0 + page_number]:
-                    write_incorrect_answer(username)
-                    return redirect(url_for('conundrum', username = username, page_number = page_number, score = negative_points_one(score)))
-   
     return render_template("conundrum.html", question = change_question(page_number), question_num = question_number(page_number), 
-                                            page_number = page_number, username = username, score = score, incorrect = read_incorrect_answers(username), 
-                                            userfile = userfile, guesses_remaining = remaining_guesses(username))
+                                            page_number = page_number, username = username, 
+                                            score = score, incorrect = read_incorrect_answers(username), userfile= userfile, guesses_remaining = remaining_guesses(username))
     
 # Leaderboard ------------------------------------------------------------------
-@app.route('/conundrum/leaderboard/<username>/<int:score>')
-def leaderboard(username, score):
+@app.route('/conundrum/leaderboard/<username>')
+def leaderboard(username):
     
     results = leader_results() #prints out the leaderboard scores and usernames
     
-    
-    return render_template("leaderboard.html", results = results, username = username, score = score, total_points = (number_of_questions() + 1) * 10)
+    return render_template("leaderboard.html", results = results, user_final_score = leaderboard_final_score(), username = username, total_points = (number_of_questions() + 1) * 10)
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'),port=int(os.getenv('PORT')),debug=True)
