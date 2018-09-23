@@ -1,9 +1,11 @@
 import os 
 from random import randint
 from flask import Flask, render_template, redirect, request, url_for, session
+import os.path
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
 # function to write or append to files
 def write_file(file_name, file_type, data):
     with open(file_name, file_type) as file:
@@ -44,6 +46,9 @@ def read_answers():
 def change_question(page_number):
     return read_questions()[0 + page_number]
 
+def correct_answer(page_number):
+    return read_answers()[0 + page_number]
+    
 # Writes the users incorrect answer to their incorrect answer file.
 def write_incorrect_answer(username):
     return write_file("data/incorrect_answers_" + username +".txt", "a", request.form["answer"] + "\n")
@@ -131,13 +136,15 @@ def index():
 @app.route('/conundrum/<username>', methods=["GET", "POST"])    
 
 def conundrum(username):
+    
     page_number = session['page_number']
     score = session['score']
     userfile = "data/incorrect_answers_" + username +".txt"   # goes with os.remove(userfile) to delete the user file when the leaderboard is reached.
     
-    if request.method == "POST":
+    if os.path.exists(userfile):
+        if request.method == "POST":
             
-            if request.form["answer"] == read_answers()[0 + page_number] and not 'skip' in request.form: 
+            if request.form["answer"] == correct_answer(page_number) and not 'skip' in request.form: 
                 # If the answer entered into the answer input box is the same as in the index position of answers.txt. Clear the user incorrect answers file
                 clear_Incorrect_answers(username) 
                 
@@ -151,11 +158,12 @@ def conundrum(username):
                 else:  
                     # If the page number(question number) is equal to the total amount of questions, add the positive scores write to the leaderboard file and 
                     # redirect to the leaderboard page.
-                    score = score + 10   # Add 10 points to the score
+                    score = score + 10 # Add 10 points to the score
                     final_score(username, score)    #This writes the final to the leaderboard.txt file 
+                    os.remove(userfile)
                     return redirect(url_for('leaderboard', username = username))
             
-            elif 'skip' in request.form or number_of_incorrect_answers(username) == 4:   
+            elif 'skip' in request.form or number_of_incorrect_answers(username) == 9:   
                 #If the skip botton is pressed or the user has had 9 incorrect answers, clear the incorrect answers
                 clear_Incorrect_answers(username)
                 
@@ -171,6 +179,7 @@ def conundrum(username):
                     # redirect to the leaderboard page.
                     score = score - 2
                     final_score(username, score)
+                    os.remove(userfile)
                     return redirect(url_for('leaderboard', username = username))
                 
             elif request.form["answer"] == "":
@@ -181,14 +190,15 @@ def conundrum(username):
                                             page_number = page_number, username = username, score = score, incorrect = read_incorrect_answers(username), 
                                             userfile= userfile, guesses_remaining = remaining_guesses(username))
             
-            elif request.form["answer"] != read_answers()[0 + page_number]: 
+            elif request.form["answer"] != correct_answer(page_number): 
                 # If the guess is not equal to the answer. Take negative points, write the incorrect answer to the users incorrect answer form and redirect to the
                 #same page
                 session['score'] -= 1
                 
                 write_incorrect_answer(username)  #Writes the incorrect answers to the users incorrect answer file.
                 return redirect(url_for('conundrum', username = username))
-    
+    else:
+        return redirect(url_for('index'))
     return render_template("conundrum.html", question = change_question(page_number), question_num = question_number(page_number), 
                                             page_number = page_number, username = username, score = score, 
                                             userfile= userfile, guesses_remaining = remaining_guesses(username), incorrect = read_incorrect_answers(username))
