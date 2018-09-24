@@ -1,5 +1,11 @@
-body {
+html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
 
+body {
+    position: relative;
     height: 100%;
     background-image: url(../images/maze5.jpg);
     background-size: cover;
@@ -7,6 +13,15 @@ body {
     background-position: center;
     font-family: "rubik", sans-serif;
     color: #000;
+}
+
+.wrapper{
+    position:relative;
+    min-height: 100%;
+}
+
+main {
+    padding-bottom: 100px;
 }
 
 h1 {
@@ -44,9 +59,6 @@ h4 {
 .row {
     margin: 0;
 }
-
-
-
 
 /*---------base.html------------*/
 
@@ -100,19 +112,15 @@ nav ul li a {
 /*---------footer------------*/
 
 footer {
-
+    position: absolute;
     background-color: #000;
+    min-height: 100px;
     width: 100%;
     margin-top: 20px;
+    bottom: 0;
 }
 
-@media (min-width: 768px) {
-    footer {
-        position: absolute;
-        bottom: 0;
-        margin: 0;
-    }
-}
+
 
 #github-icon {
     color: #fff;
@@ -136,6 +144,7 @@ footer {
     padding: 15px;
     margin: 50px 0 0 0;
     border-radius: 5px;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 }
 
 input[name=username] {
@@ -148,21 +157,43 @@ input[name=username] {
 
 /*---------conundrum.html------------*/
 
-.game-rules-hidden {
-    display: none;
-}
-
 .game-rules-show {
     position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
     width: 300px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, .9);
     border-radius: 5px;
     border: 1px solid #000;
     overflow: hidden;
     z-index: 1;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    display: none;
+}
+
+.game-rules-ok-btn {
+    margin-bottom: 15px;
+}
+.welcome-screen-show {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    max-width: 300px;
+    padding: 15px;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 5px;
+    border: 1px solid #000;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+.maze-icon_conundrum{
+    width: 70px;
+    height: 70px;
 }
 
 .game-rules-head {
@@ -185,7 +216,7 @@ input[name=username] {
 .rule-points-guesses {
     background-color: gray;
     padding: 10px 0 0 0;
-
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     display: inline-block;
 }
@@ -210,10 +241,11 @@ input[name=username] {
 }
 
 .question-container {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, .9);
     min-height: 335px;
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 }
 
 
@@ -279,20 +311,34 @@ tr {
 }
 
 /*---------learderboard.html------------*/
+.user-score-container {
+    display: inline-block;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    padding: 0 15px;
+    margin-bottom: 15px;
+}
 
 .leaderboard-heading {
     color: #fff;
+    padding-bottom: 15px;
 }
 
+.users-score {
+    padding: 15px 0;
+}
 .user-score {
     font-weight: bold;
-    color: #fff;
+    color: #000;
+    font-size: 18px;
 }
 
 .leader-board-table {
     width: 60%;
     margin: 0 auto;
-    background-color: gray;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 @media (max-width: 767px) {
@@ -306,12 +352,9 @@ tr {
     margin-bottom: 30px;
 }
 
-.leader-board-table {
-    border-radius: 10px;
-    border: 5px solid #fff;
-    overflow: hidden;
+.color-gray {
+   background-color: gray; 
 }
-
 .leader-board-table td {
     width: 33%;
     padding: 3px 0 3px 0;
@@ -322,7 +365,7 @@ tr {
 }
 
 .table-row-white {
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.5);
 }
 
 #leaderboard-heading-td {

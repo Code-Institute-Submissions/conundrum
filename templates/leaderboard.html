@@ -1,37 +1,54 @@
 {% extends 'base.html' %} {% block content %} .
-<div class="row">
+<div class="row centering">
+    
     <div class="col-xs-12 centering">
 
         <h2 class='leaderboard-heading'>LeaderBoard</h2>
     </div>
+    <div class="user-score-container">
+    <div class="users-score centering">
+        {% if username != "user" %}
+        {% if user_final_score[-1] <= results[9][1] %}
+            
+            <p class="user-score"> Sorry {{ username }}, you didn't make the leaderboard.
+            <br>your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
+        
+        {% endif %}
+        {% if user_final_score[-1] > results[9][1] %}
+            
+            <p class="user-score">Well done {{ username }}, you made the Top Ten.
+            <br>Your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
+            
+        
+        {% endif %}
+        {% endif %}
+    </div>
+    </div>
 </div>
+
+
 <div class="row table-row centering">
 
     <table class="leader-board-table">
         
-        <tr>
+        <tr class="color-gray">
             <td></td>
-            <td><p class="top-players">Top Players</p></td>
-            <td></td>
-        </tr>
-        
-        {% if username != "user" %}
-        <tr>
-            <td></td>
-            <td><b><p class="user-score"> Your score: {{ user_final_score[-1] }} out of {{ total_points }}</p></b></td>
+            <td><p class="top-players">Top Ten</p></td>
             <td></td>
         </tr>
-        {% endif %}
 
-        <tr>
+        <tr class="color-gray">
             <td><b># Rank</b></td>
             <td><b>Player</b></td>
             <td><b>Score </b></td>
         </tr>
-
+        
         {% for i in results %} 
         {% if loop.index <=10 %}
-        {% if loop.index % 2==0 %} <tr class="table-row-gray">
+        {% if loop.index % 2==0 %} 
+        
+        <tr class="table-row-gray">
+            
             <td><b># {{ loop.index }}</b></td>
             <td>{{ i[0] }}</td>
             <td>{{ i[1] }}</td>
@@ -49,6 +66,8 @@
             {% endfor %}
     </table>
 </div>
+
+
 
 
 {% endblock%}

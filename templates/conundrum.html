@@ -8,6 +8,7 @@
         </div>
         
         <div class="centering col-xs-12 col-sm-4">
+            
             <p><b>Score: {{score}} points</b></p>
         </div>
         <div class="negative-points centering col-xs-12 col-sm-4">
@@ -17,7 +18,15 @@
 </div>
 
 <div class="row conundrum-row">
-    <div id="game-rules" class="game-rules-hidden">
+    {% if page_number == 0 and score == 0 %}
+    <div id="welcome-screen" class="welcome-screen-show centering">
+        <img class="maze-icon_conundrum" src="{{ url_for('static', filename='images/mazeicon.png') }}"></img>
+        <h2>Welcome to Conundrum {{ username }}</h2>
+        <button id="welcome-screen-button">Close</button>
+    </div>
+    {% endif %}
+    
+    <div id="game-rules" class="game-rules-show ">
         <div class="game-rules-head">
             <p class="centering game-rules-heading">Game rules</p>
         </div>
@@ -27,8 +36,12 @@
             <li>An incorrect answer deducts 1 point from the score.</li>
             <li>You have 10 guesses before being directed to the next question</li>
             <li>Good Luck!</li>
-        </ul>
-    </div>
+        </ul>   
+        <div class="centering">
+            <button class="game-rules-ok-btn">okay</button>
+        </div>
+        
+    </div>  
 
     
 
@@ -90,5 +103,7 @@
         </div>
     </div>
 </div>
+
+
 
 {% endblock%}
