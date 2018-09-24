@@ -232,6 +232,14 @@ input[name=username] {
     border-radius: 7px;
 }
 
+.positive_points {
+    color: green;
+}
+
+.negative_points {
+    color: red;
+}
+
 .conundrum-row {
     margin-top: 2.5%;
 }

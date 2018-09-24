@@ -9,7 +9,15 @@
         
         <div class="centering col-xs-12 col-sm-4">
             
-            <p><b>Score: {{score}} points</b></p>
+            <p><b>Score: {{score}} points
+            {% if page_number != 0 and positive_negative_points == 0 %}
+            <p class="positive_points"> Correct +10 Points</p>
+            {% endif %}
+            {% if positive_negative_points < 0 %}
+            <p class="negative_points"> Incorrect {{ positive_negative_points }} Point</p>
+            {% endif %}
+            
+            </b></p>
         </div>
         <div class="negative-points centering col-xs-12 col-sm-4">
             <p><b>Guesses remaining:</b> {{ guesses_remaining }}</p>

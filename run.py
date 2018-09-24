@@ -28,6 +28,10 @@ def number_of_incorrect_answers(username):
     lines = read_file("data/incorrect_answers_" + username +".txt")
     return len(lines)
     
+def number_of_lines_in_leaderboard():
+    lines = read_file("data/leaderboard.txt")
+    return len(lines)
+    
 # Determines the remaining amount of guesses  
 def remaining_guesses(username):
     return 10 - number_of_incorrect_answers(username)
@@ -68,19 +72,17 @@ def empty_user_form():
     empty = "A username is required to play."
     return empty
     
-def skip_final_score(username, score):
-    return write_file("data/leaderboard.txt", "a", "{0} {1}".format(username, score))
-    
 # returns the question number, and number of questions displayed on the conundrum.html  
 def question_number(page_number):
     return "Question {0} of {1}".format(page_number + 1 , number_of_questions()+1)
+    
+def skip_final_score(username, score):
+    return write_file("data/leaderboard.txt", "a", "{0} {1}".format(username, score))
 
 # This records the username and their final score to the leaderboard file.
 def final_score(username, score):
     score = write_file("data/leaderboard.txt", "a", username + "\n" + str(score) +"\n")
     return score
-    
-
     
 # For the leaderboard when sorting the top ten score, this sorts the second index postion. Called in leader_results().
 def sort_score(x):
@@ -113,6 +115,7 @@ def clear_Incorrect_answers(username):
 # Index Page--------------------------------------------------------------------
 @app.route('/', methods=["GET", "POST"])
 def index():
+    session['positive_negative_points'] = 0
     session['page_number'] = 0
     session['score'] = 0
     if request.method == "POST":
@@ -136,7 +139,7 @@ def index():
 @app.route('/conundrum/<username>', methods=["GET", "POST"])    
 
 def conundrum(username):
-    
+    positive_negative_points = session["positive_negative_points"]
     page_number = session['page_number']
     score = session['score']
     userfile = "data/incorrect_answers_" + username +".txt"   # goes with os.remove(userfile) to delete the user file when the leaderboard is reached.
@@ -151,6 +154,7 @@ def conundrum(username):
                 if page_number < number_of_questions():
                     session['page_number'] += 1
                     session['score'] += 10
+                    session["positive_negative_points"] = 0
                     #If the page number(question number) is less than the total amount of questions, add the positive scores and increase the page number
                     #so the question changes. redirect to the same page
                     return redirect(url_for('conundrum', username = username))
@@ -168,6 +172,7 @@ def conundrum(username):
                 clear_Incorrect_answers(username)
                 
                 if page_number < number_of_questions():
+                    session["positive_negative_points"] -= 2
                     session['page_number'] += 1
                     session['score'] -= 2
                     #If the page number(question number) is less than the total amount of questions. add negative scores and increase the page number
@@ -183,25 +188,29 @@ def conundrum(username):
                     return redirect(url_for('leaderboard', username = username))
                 
             elif request.form["answer"] == "":
-                if number_of_incorrect_answers(username) == 0: #if the input field is empty, redirect to the same page.
-                    return redirect(url_for('conundrum', username = username))
-                else:
-                    return render_template("conundrum.html", question = change_question(page_number), question_num = question_number(page_number), 
-                                            page_number = page_number, username = username, score = score, incorrect = read_incorrect_answers(username), 
-                                            userfile= userfile, guesses_remaining = remaining_guesses(username))
+                #if the input field is empty, redirect to the same page.
+                return redirect(url_for('conundrum', username = username))
+                
             
             elif request.form["answer"] != correct_answer(page_number): 
                 # If the guess is not equal to the answer. Take negative points, write the incorrect answer to the users incorrect answer form and redirect to the
                 #same page
                 session['score'] -= 1
+                session["positive_negative_points"] -= 1
                 
                 write_incorrect_answer(username)  #Writes the incorrect answers to the users incorrect answer file.
                 return redirect(url_for('conundrum', username = username))
     else:
         return redirect(url_for('index'))
-    return render_template("conundrum.html", question = change_question(page_number), question_num = question_number(page_number), 
-                                            page_number = page_number, username = username, score = score, 
-                                            userfile= userfile, guesses_remaining = remaining_guesses(username), incorrect = read_incorrect_answers(username))
+    return render_template("conundrum.html", score = score, 
+                                             userfile= userfile, 
+                                             username = username, 
+                                             page_number = page_number, 
+                                             question = change_question(page_number),
+                                             question_num = question_number(page_number), 
+                                             incorrect = read_incorrect_answers(username),
+                                             guesses_remaining = remaining_guesses(username),
+                                             positive_negative_points = positive_negative_points)
     
 # Leaderboard ------------------------------------------------------------------
 @app.route('/conundrum/leaderboard/<username>')
@@ -209,6 +218,10 @@ def leaderboard(username):
     
     results = leader_results() #prints out the leaderboard scores and usernames
     
-    return render_template("leaderboard.html", results = results, user_final_score = leaderboard_final_score(), username = username, total_points = (number_of_questions() + 1) * 10)
+    return render_template("leaderboard.html", results = results, 
+                                                user_final_score = leaderboard_final_score(), 
+                                                username = username,
+                                                number_in_leaderboard = number_of_lines_in_leaderboard(),
+                                                total_points = (number_of_questions() + 1) * 10)
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'),port=int(os.getenv('PORT')),debug=True)

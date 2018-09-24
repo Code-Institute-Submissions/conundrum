@@ -5,16 +5,25 @@
 
         <h2 class='leaderboard-heading'>LeaderBoard</h2>
     </div>
+    {% if username != "user" %}
     <div class="user-score-container">
     <div class="users-score centering">
-        {% if username != "user" %}
-        {% if user_final_score[-1] <= results[9][1] %}
+        
+        {% if number_in_leaderboard <= 20 %}
+        <p class="user-score">Well done {{ username }}, you made the Top Ten.
+            <br>Your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
+        {% endif %}
+        
+        {% if number_in_leaderboard > 20 %}
+        
+        
+        {% if user_final_score[-1] <= results[10][1] %}
             
             <p class="user-score"> Sorry {{ username }}, you didn't make the leaderboard.
             <br>your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
         
         {% endif %}
-        {% if user_final_score[-1] > results[9][1] %}
+        {% if user_final_score[-1] > results[10][1] %}
             
             <p class="user-score">Well done {{ username }}, you made the Top Ten.
             <br>Your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
@@ -22,8 +31,10 @@
         
         {% endif %}
         {% endif %}
+        
     </div>
     </div>
+    {% endif %}
 </div>
 
 
