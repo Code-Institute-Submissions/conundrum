@@ -43,7 +43,7 @@ scoring.
 - If the user tries to go back, the page is redirected to the index page.
 
 ### Wire Frames
-- [Wire Frames](https://github.com/brettcutt/conundrum/tree/master/static/images/wireframes/wireframe.MD)
+- [Wire Frames](https://github.com/brettcutt/conundrum/blob/master/static/images/wireframes/wireframe.MD)
 ## Technologies, Libraries and Languages
 
 ##### Python
