@@ -15,13 +15,13 @@ body {
     color: #000;
 }
 
-.wrapper{
-    position:relative;
+.wrapper {
+    position: relative;
     min-height: 100%;
 }
 
 main {
-    padding-bottom: 100px;
+    padding-bottom: 120px;
 }
 
 h1 {
@@ -142,9 +142,21 @@ footer {
     display: inline-block;
     background-color: rgba(255, 255, 255, .9);
     padding: 15px;
-    margin: 50px 0 0 0;
+    margin-top: 9%;
     border-radius: 5px;
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 767px) {
+    .username-container {
+        width: 90%
+    }
+}
+
+@media (max-width: 991px) {
+    .username-container {
+        margin-top: 20%;
+    }
 }
 
 input[name=username] {
@@ -168,13 +180,14 @@ input[name=username] {
     border: 1px solid #000;
     overflow: hidden;
     z-index: 1;
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
     display: none;
 }
 
 .game-rules-ok-btn {
     margin-bottom: 15px;
 }
+
 .welcome-screen-show {
     position: absolute;
     margin: 0 auto;
@@ -188,10 +201,10 @@ input[name=username] {
     border: 1px solid #000;
     overflow: hidden;
     z-index: 1;
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-.maze-icon_conundrum{
+.maze-icon_conundrum {
     width: 70px;
     height: 70px;
 }
@@ -216,9 +229,15 @@ input[name=username] {
 .rule-points-guesses {
     background-color: gray;
     padding: 10px 0 0 0;
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
     display: inline-block;
+}
+
+@media (max-width: 767px) {
+    .rule-points-guesses {
+        padding: 15px 0;
+    }
 }
 
 @media (min-width: 992px) {
@@ -231,6 +250,7 @@ input[name=username] {
 .rules-btn {
     border-radius: 7px;
 }
+
 
 .conundrum-row {
     margin-top: 2.5%;
@@ -245,7 +265,7 @@ input[name=username] {
     min-height: 335px;
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 
@@ -328,9 +348,10 @@ tr {
 }
 
 /*---------learderboard.html------------*/
+
 .user-score-container {
     display: inline-block;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     padding: 0 15px;
     margin-bottom: 15px;
@@ -344,6 +365,7 @@ tr {
 .users-score {
     padding: 15px 0;
 }
+
 .user-score {
     font-weight: bold;
     color: #000;
@@ -353,7 +375,7 @@ tr {
 .leader-board-table {
     width: 60%;
     margin: 0 auto;
-    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
     overflow: hidden;
 }
@@ -370,8 +392,9 @@ tr {
 }
 
 .color-gray {
-   background-color: gray; 
+    background-color: gray;
 }
+
 .leader-board-table td {
     width: 33%;
     padding: 3px 0 3px 0;
@@ -382,7 +405,7 @@ tr {
 }
 
 .table-row-white {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 #leaderboard-heading-td {
