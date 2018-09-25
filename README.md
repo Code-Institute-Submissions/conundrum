@@ -1,6 +1,5 @@
 # Conundrum
 
-
 - This is the third milestone project for the Full-Stack software development course through Code Institute. I named my project Conundrum as thats exactly what the user will have to solve.
 The requirement of this project was to create a quiz game, that would ask the user questions for them to answer. If the answer to the question is correct then the user would be directed to 
 the next question. If the answer to the question is incorrect, then that incorrect answer would be displayed for the user to see. The user than would be able to have another shot at guessing 
@@ -44,6 +43,7 @@ scoring.
 
 ### Wire Frames
 - [Wire Frames](https://github.com/brettcutt/conundrum/blob/master/static/images/wireframes/wireframe.md)
+
 ## Technologies, Libraries and Languages
 
 ##### Python
@@ -111,12 +111,12 @@ The manual test involved checking:
 ##### conundrum.html
 The manual test involved checking:
 - The users file for incorrect answers is created.
-- The welcome message fades away when the close button is clicked.
-- The rules button toggles rules box as well as the close button only hiding the box.
+- The welcome message fades away after 2 seconds.
+- The rules button toggles the rules box as well as the close button only hiding the box.
 - Submitting an empty input field redirects to the same page and keeps any incorrect answers if there are any. 
 - Entering a incorrect answer: deducts 1 point from the score, deduct 1 remaining guess and displays that answer in the "incorrect guesses" box.
 - Correct and incorrect answers, and skips are displayed in the questions container including the amount added or taken off.
-- Entering an incorrect answer 10 times redirects to the next page as well as having a total of 10 points deducted plus another point because it also a skip.
+- Entering an incorrect answer 10 times redirects to the next page as well as having a total of 10 points deducted plus another point because it is also a skip.
 - Answering correctly redirects to the next question, adds 10 points to the score, clears the incorrect answers and refreshes the remaining guesses.
 - All links work and redirect to the appropriate pages.
 - The different combination of correct answers, incorrect answers, skips all total the score up appropriately.
@@ -129,8 +129,44 @@ The manual test involved checking:
 than the 10th position a message displays saying sorry you didn't make the leaderboard.
 - The leaderboard displays the top ten scores 
 - If the user tries to go back to the last question, the page redirects to the index(home) page.
-- The users file for incorrect answers is deleted.
 - All links work and redirect to the appropriate pages.
+
+#### Above tests on the following browsers/ devices
+##### Chrome
+- All passed
+
+##### Edge
+- All passed
+
+##### Fire Fox
+- All passed
+
+###### note 
+- Going backwards from the leaderboard page went back to the last question. However if the user tried to answer again, then the page redirected back to the index(home) page.
+I don't find this a problem because the user stil cannot cheat and change their score.
+
+##### Safari
+###### Fails 
+- The GitHub icon couldn't secure a connection to the server.
+- All other tests passed.
+
+###### note 
+- Going backwards from the leaderboard page went back to the last question. However if the user tried to answer again, then the page redirected back to the index(home) page.
+I don't find this a problem because the user stil cannot cheat and change their score.
+
+##### Safari
+- All passed
+
+##### My Mobile phone running Chrome
+- All Passed
+
+#### Responsiveness
+- Using the developer tools in chrome and my own personal mobile phone, all the device selections were used to check the responsiveness of this project.
+- Every part of the project is appropriately responsive.
+
+#### Multiple players
+- To ensure that the project ran with multiple player and didn't clash, I used my computer and a friends computer, logged in as different users and played the project at the same time. 
+- There was no outcome where a player was affected by another.
 
 #### Testing Issues
 ##### Reading file from Heroku 
@@ -163,6 +199,16 @@ really happy with this method because I could cheat by manually entering a score
 - While searching through the slack forum other students were wrting about sessions and user sessions. I looked more into this and found that sessions would keep a count.
 - https://stackoverflow.com/questions/42671298/python-counter-add-and-subtract
 - https://www.youtube.com/watch?v=T1ZVyY1LWOg
+
+### Code validation
+#### CSS
+- Using the jigsaw validator, the main.css file passed with no errors.
+
+#### HTML 5
+- Using W3C validator, the files returned no html5 related errors. Flask related errors were returned which is expected and does not result as poor coding. 
+
+#### Python
+- There are no errors. Only warning about lines being too long.
 
 ## Deployment
 #### In heroku
