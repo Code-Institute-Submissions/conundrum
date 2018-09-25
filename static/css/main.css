@@ -232,14 +232,6 @@ input[name=username] {
     border-radius: 7px;
 }
 
-.positive_points {
-    color: green;
-}
-
-.negative_points {
-    color: red;
-}
-
 .conundrum-row {
     margin-top: 2.5%;
 }
@@ -279,6 +271,23 @@ input[name=username] {
     min-height: 100px;
 }
 
+.display_positive_negative_points {
+    position: absolute;
+    bottom: 100px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+.positive_points {
+    color: green;
+    font-weight: bold;
+}
+
+.negative_points {
+    color: red;
+    font-weight: bold;
+}
 
 
 .answer-bottom {

@@ -1,39 +1,49 @@
 {% extends 'base.html' %} {% block content %}
 
+<!---------------------------Rules, Scoring and remaining guesses bar -->
+
 <div class="row conundrum-row-1">
+    
     <div class="rule-points-guesses col-xs-offset-3 col-xs-6 col-sm-offset-1 col-sm-10">
-        
+
         <div class="centering col-xs-12 col-sm-4">
-            <button class="rules-btn">Rules</button>
+            <button class="rules-btn">Rules</button> 
         </div>
-        
+
         <div class="centering col-xs-12 col-sm-4">
-            
-            <p><b>Score: {{score}} points
-            {% if page_number != 0 and positive_negative_points == 0 %}
-            <p class="positive_points"> Correct +10 Points</p>
+            {% if score == 1 or score == -1 %}
+            <p><b>Score: {{score}} point
             {% endif %}
-            {% if positive_negative_points < 0 %}
-            <p class="negative_points"> Incorrect {{ positive_negative_points }} Point</p>
+            {% if score == 0 or score > 1 or score < -1 %}
+            <p><b>Score: {{score}} points
             {% endif %}
             
             </b></p>
         </div>
+        
         <div class="negative-points centering col-xs-12 col-sm-4">
             <p><b>Guesses remaining:</b> {{ guesses_remaining }}</p>
         </div>
+        
     </div>
+    
 </div>
 
 <div class="row conundrum-row">
+    
+<!---------------------------Welcome Screen position absolute and hidden after 2 seconds-->
+    
     {% if page_number == 0 and score == 0 %}
     <div id="welcome-screen" class="welcome-screen-show centering">
         <img class="maze-icon_conundrum" src="{{ url_for('static', filename='images/mazeicon.png') }}"></img>
         <h2>Welcome to Conundrum {{ username }}</h2>
-        <button id="welcome-screen-button">Close</button>
     </div>
     {% endif %}
     
+<!---------------------------Welcome Screen, position absolute and hidden after 2 seconds-->
+
+<!---------------------------Games rule screen, position abosulte and toggled with a button -->
+
     <div id="game-rules" class="game-rules-show ">
         <div class="game-rules-head">
             <p class="centering game-rules-heading">Game rules</p>
@@ -44,31 +54,55 @@
             <li>An incorrect answer deducts 1 point from the score.</li>
             <li>You have 10 guesses before being directed to the next question</li>
             <li>Good Luck!</li>
-        </ul>   
+        </ul>
         <div class="centering">
             <button class="game-rules-ok-btn">okay</button>
         </div>
-        
-    </div>  
 
-    
+    </div>
+
+<!---------------------------Games rule screen, position abosulte and toggled with a button -->
+
+<!---------------------------Questions container -->
 
     <div class="col-sm-offset-1 col-sm-5 col-lg-offset-3 col-lg-3 ">
         <div class="question-container">
-
+            
+            <!--The top of the questions container, Displays which question number the user is up to-->
             <div class="question-head">
-                <!--Displays which question number the user is up to-->
                 <h4 id="question-number"> {{ question_num }}</h4>
             </div>
-
+            <!--The top of the questions container, Displays which question number the user is up to-->
+            
+            <!--The middle of the questions container, Displays the questions and the positive/negative scores-->
             <div class="question-body centering">
-
-                <!--The question the user will attempt to answer-->
+                
+                <!--The quiz questions-->
                 <p><b>{{ question }}</b> </p>
+                <!--The quiz questions-->
+                
+                <!--displays positive/negative scores depending on the answer, position absolute and hidden after 2 seconds-->
+                <div class="display_positive_negative_points">
+                    
+                    {% if page_number != 0 and positive_negative_points == 0 %}
+                    <p class="positive_points"> {{ answer }} is correct <br>+10 Points</p>
+                    {% endif %} 
+                    
+                    {% if positive_negative_points == 1 %}
+                    <p class="negative_points"> {{ incorrect[-1] }} is incorrect <br>-1 Point</p>
+                    {% endif %} 
+                    
+                    {% if positive_negative_points == 2 %} 
+                    <p class="negative_points"> Skipped <br> -2 Points</p>
+                    {% endif %}
+                </div>
+                <!--displays positive/negative scores depending on the answer, position absolute and hidden after 2 seconds-->
+                
             </div>
-
+            
+            <!--The bottom of the questions container, Area for the user in input their answers or skip-->
             <div class="answer-bottom">
-                <!--The input field for the users answer-->
+                
                 <div class="centering">
                     <form method="POST" class="inline-block">
                         <input type="text" name="answer" placeholder="Enter your answer here." /><br>
@@ -77,39 +111,54 @@
                     </form>
                 </div>
 
-
-
             </div>
+            
         </div>
     </div>
 
+<!---------------------------Questions container -->
+
+<!---------------------------Incorrect guesses container -->
+
     <div class="col-sm-5 col-lg-3">
         <div class="question-container">
+            
             <div class="question-head">
-
-                <!--Displays which question number the user is up to-->
                 <h4> Incorrect guesses</h4>
             </div>
+            
+            
             <div class="guesses-body centering">
+                
                 <table class="guesses-table">
-                    {% for answer in incorrect %} {% if loop.index % 2 == 0 %}
+                    
+                    {% for answer in incorrect %} 
+                    {% if loop.index % 2 == 0 %}
                     <tr class="table-row-gray">
                         <td># {{ loop.index }}. </td>
                         <td>{{ answer }}</td>
                         <td></td>
                     </tr>
-                    {% endif %} {% if loop.index % 2 == 1 %}
+                    
+                    {% endif %} 
+                    {% if loop.index % 2 == 1 %}
                     <tr class="table-row-white">
                         <td># {{ loop.index }}. </td>
                         <td>{{ answer }}</td>
                         <td></td>
                     </tr>
-                    {% endif %} {% endfor %}
+                    {% endif %} 
+                    {% endfor %}
                 </table>
+                
             </div>
-            <!--Incorrect answers -->
+            
+            
         </div>
     </div>
+    
+<!---------------------------Incorrect guesses container -->
+
 </div>
 
 
