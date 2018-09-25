@@ -6,7 +6,7 @@ The app design did change a little from the wire frames.
 ## Index page(login)
 ![user screen](wireframe-userscreen.jpg)
 
-## Conundrum Page on Destop 
+## Conundrum Page on Desktop 
 ![quiz on desktop](wireframe-quizpage.jpg)
 
 ## Conundrum Page on Mobile
