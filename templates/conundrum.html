@@ -17,7 +17,6 @@
             {% if score == 0 or score > 1 or score < -1 %}
             <p><b>Score: {{score}} points </b></p>
             {% endif %}
-            
         </div>
         
         <div class="centering hidden-xs col-xs-12 col-sm-4">
@@ -31,6 +30,7 @@
         <div class="centering hidden-sm hidden-md hidden-lg col-xs-12 col-sm-4">
             <button class="rules-btn">Rules</button> 
         </div>
+        
     </div>
     
 </div>
@@ -41,8 +41,10 @@
     
     {% if page_number == 0 and score == 0 %}
     <div id="welcome-screen" class="welcome-screen-show centering">
+        
         <img class="maze-icon_conundrum" src="{{ url_for('static', filename='images/mazeicon.png') }}" alt="maze icon">
         <h2>Welcome to Conundrum {{ username }}</h2>
+        
     </div>
     {% endif %}
     
@@ -51,16 +53,20 @@
 <!--/////////////////////////////Games rule screen, position abosulte and toggled with a button -->
 
     <div id="game-rules" class="game-rules-show ">
+        
         <div class="game-rules-head">
             <p class="centering game-rules-heading">Game rules</p>
         </div>
+        
         <ul>
+            <li>All the answers are a single word.</li>
             <li>A correct answer is worth 10 points.</li>
             <li>An incorrect answer deducts 1 point from the score.</li>
             <li>Skipping a question deducts 2 points from the score.</li>
             <li>You have 10 guesses before a skip is initiated. This results in 2 points being deducted.</li>
             <li>Good Luck!</li>
         </ul>
+        
         <div class="centering">
             <button class="game-rules-ok-btn">Okay</button>
         </div>
@@ -84,7 +90,7 @@
             <div class="question-body centering">
                 
                 <!--The quiz questions-->
-                <p><b>{{ question }}</b> </p>
+                <p class="quiz-questions"><b>{{ question }}</b> </p>
                 <!--The quiz questions-->
                 
                 <!--displays positive/negative scores depending on the answer, position absolute and hidden after 2 seconds-->
@@ -110,11 +116,13 @@
             <div class="answer-bottom">
                 
                 <div class="centering">
+                    
                     <form method="POST" class="inline-block">
                         <input type="text" name="answer" placeholder="Enter your answer here." /><br>
                         <input type="submit" name="submit" value="Submit" />
                         <input type="submit" name="skip" value="Skip" />
                     </form>
+                    
                 </div>
 
             </div>
@@ -133,20 +141,20 @@
                 <h4> Incorrect guesses</h4>
             </div>
             
-            
             <div class="guesses-body centering">
                 
                 <table class="guesses-table">
                     
                     {% for answer in incorrect %} 
+                    
                     {% if loop.index % 2 == 0 %}
                     <tr class="table-row-gray">
                         <td># {{ loop.index }}. </td>
                         <td>{{ answer }}</td>
                         <td></td>
                     </tr>
-                    
                     {% endif %} 
+                    
                     {% if loop.index % 2 == 1 %}
                     <tr class="table-row-transparent">
                         <td># {{ loop.index }}. </td>
@@ -154,11 +162,11 @@
                         <td></td>
                     </tr>
                     {% endif %} 
+                    
                     {% endfor %}
                 </table>
                 
             </div>
-            
             
         </div>
     </div>
