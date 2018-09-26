@@ -17,30 +17,30 @@ def write_file(file_name, file_type, data):
 
 # function to read files
 def read_file(file_name):
-    with open(file_name, "r") as file:
+    with open(file_name, "r" ) as file:
         lines = file.read().splitlines()
         return lines
 
 
 # Counts the number of questions in questions.txt.
-# Used to make a score or which question you're up to.
 def number_of_questions():
     number = read_file("data/questions.txt")
     return len(number)-2
 
 
-# Counts the number of lines in the users incorrect answers form
+# Counts the number of incorrect answers in incorrect_answers.txt
 def number_of_incorrect_answers(username):
     lines = read_file("data/incorrect_answers_" + username + ".txt")
     return len(lines)
 
 
+# Counts the number of incorrect answers in leaderboard.txt
 def number_of_lines_in_leaderboard():
     lines = read_file("data/leaderboard.txt")
     return len(lines)
 
 
-# Determines the remaining amount of guesses
+# For displaying the number of remaining guesse
 def remaining_guesses(username):
     return 10 - number_of_incorrect_answers(username)
 
@@ -57,18 +57,20 @@ def read_answers():
     return answers
 
 
-# Reads the answer.txt and index positon according to the page number.
+# Reads the answer.txt. the answers are determined by the page number.
 # used in conundrum.html to show that the user got the correct answer.
 def change_answer(page_number):
     answer = read_answers()[-1 + page_number]
     return answer.capitalize()
 
 
-# Changes the question when the page number increases.
+# Reads the question.txt. Changes the question when the page number increases.
 def change_question(page_number):
     return read_questions()[0 + page_number]
 
 
+# Reads the answer.txt. the answers are determined by the page number.
+# The answer changes when the page_number increase.
 def correct_answer(page_number):
     return read_answers()[0 + page_number]
 
@@ -86,8 +88,8 @@ def read_incorrect_answers(username):
 # Creates a form for the users incorrect answers.
 def create_incorrect_answer_form(username):
     with open("data/incorrect_answers_" + username + ".txt", "a+") as file:
-        new_file = file.read().splitlines()
-        return new_file
+        incorrect_answers = file.read().splitlines()
+        return incorrect_answers
 
 
 # If the user enters nothing in the input field, this returns a string.
@@ -103,11 +105,14 @@ def question_number(page_number):
 
 # This records the username and their final score to the leaderboard file.
 def final_score(username, score):
-    if score > 0 and score < 10:
-        score = write_file("data/leaderboard.txt", "a", username + "\n" + " " + str(score) + "\n")
+    if score < 10:
+        score = write_file("data/leaderboard.txt", "a", username + "\n" + "  " + str(score) + "\n")
+        return score
+    elif score > 99:
+        score = write_file("data/leaderboard.txt", "a", username + "\n" +  str(score) + "\n")
         return score
     else:
-        score = write_file("data/leaderboard.txt", "a", username + "\n" + str(score) + "\n")
+        score = write_file("data/leaderboard.txt", "a", username + "\n" + " " + str(score) + "\n")
         return score
 
 
@@ -130,7 +135,7 @@ def leader_results():
 
     result = sorted(name_and_score, key=sort_score, reverse=True)
     return result
-
+print(leader_results())
 
 # Shows the individual users score on the leaderboard screen.
 def leaderboard_final_score():
@@ -180,6 +185,7 @@ def conundrum(username):
     userfile = "data/incorrect_answers_" + username + ".txt"  # goes with os.remove(userfile) to delete the user file when the leaderboard is reached.
 
     if os.path.exists(userfile):
+        # If a user file exists continue. Used to prevent cheating.
         if request.method == "POST":
 
             if request.form["answer"].lower() == correct_answer(page_number) and not 'skip' in request.form:
@@ -187,11 +193,11 @@ def conundrum(username):
                 clear_Incorrect_answers(username)
 
                 if page_number < number_of_questions():
+                    # If the page number(question number) is less than the total amount of questions, add the positive scores and increase the page number
+                    # so the question changes. redirect to the same page
                     session['score'] += 10
                     session['page_number'] += 1
                     session["positive_negative_points"] = 0
-                    # If the page number(question number) is less than the total amount of questions, add the positive scores and increase the page number
-                    # so the question changes. redirect to the same page
                     return redirect(url_for('conundrum', username=username))
 
                 else:
@@ -207,11 +213,11 @@ def conundrum(username):
                 clear_Incorrect_answers(username)
 
                 if page_number < number_of_questions():
+                    # If the page number(question number) is less than the total amount of questions. Add negative scores and increase the page number
+                    # so the question changes. redirect to the same page.
                     session['score'] -= 2
                     session['page_number'] += 1
                     session["positive_negative_points"] = 2
-                    # If the page number(question number) is less than the total amount of questions. add negative scores and increase the page number
-                    # so the question changes. redirect to the same page
                     return redirect(url_for('conundrum', username=username))
 
                 else:
@@ -228,7 +234,7 @@ def conundrum(username):
 
             elif request.form["answer"].lower() != correct_answer(page_number):
                 # If the guess is not equal to the answer. Take negative points, write the incorrect answer to the users incorrect answer form and redirect to the
-                # same page
+                # same page.
                 session['score'] -= 1
                 session["positive_negative_points"] = 1
 
