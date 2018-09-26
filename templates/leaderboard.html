@@ -10,7 +10,7 @@
     <div class="users-score centering">
         
         {% if number_in_leaderboard <= 20 %}
-        <p class="user-score">Well done {{ username }}, you made the Top Ten.
+        <p class="user-score">Well done {{ user_final_score[-2] }}, you made the Top Ten.
             <br>Your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
         {% endif %}
         
@@ -19,13 +19,13 @@
         
         {% if user_final_score[-1] <= results[10][1] %}
             
-            <p class="user-score"> Sorry {{ username }}, you didn't make the leaderboard.
+            <p class="user-score"> Sorry {{ user_final_score[-2] }}, you didn't make the leaderboard.
             <br>your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
         
         {% endif %}
         {% if user_final_score[-1] > results[10][1] %}
             
-            <p class="user-score">Well done {{ username }}, you made the Top Ten.
+            <p class="user-score">Well done {{ user_final_score[-2] }}, you made the Top Ten.
             <br>Your score is: {{ user_final_score[-1] }} out of {{ total_points }}</p>
             
         
@@ -42,13 +42,13 @@
 
     <table class="leader-board-table">
         
-        <tr class="color-gray">
+        <tr class="table-row-gray">
             <td></td>
             <td><p class="top-players">Top Ten</p></td>
             <td></td>
         </tr>
 
-        <tr class="color-gray">
+        <tr class="table-row-gray">
             <td><b># Rank</b></td>
             <td><b>Player</b></td>
             <td><b>Score </b></td>
@@ -67,7 +67,7 @@
 
             {% endif %} 
             {% if loop.index % 2 == 1 %}
-            <tr class="table-row-white">
+            <tr class=".table-row-transparent">
                 <td><b># {{ loop.index }}</b></td>
                 <td>{{ i[0] }}</td>
                 <td>{{ i[1] }}</td>

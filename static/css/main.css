@@ -60,6 +60,17 @@ h4 {
     margin: 0;
 }
 
+button {
+    border-radius: 15px;
+    width: 70px;
+}
+
+input[type=submit] {
+    border-radius: 15px;
+    margin: 0 10px 0 10px;
+    width: 70px;
+}
+
 /*---------base.html------------*/
 
 /*---------header------------*/
@@ -175,7 +186,7 @@ input[name=username] {
     right: 0;
     margin: 0 auto;
     width: 300px;
-    background-color: rgba(255, 255, 255, .9);
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 5px;
     border: 1px solid #000;
     overflow: hidden;
@@ -210,7 +221,7 @@ input[name=username] {
 }
 
 .game-rules-head {
-    background-color: gray;
+    background-color: rgba(107, 109, 127, 1);
 }
 
 .game-rules-heading {
@@ -227,7 +238,7 @@ input[name=username] {
 }
 
 .rule-points-guesses {
-    background-color: gray;
+    background-color: rgba(255, 255, 255, .7);
     padding: 10px 0 0 0;
     box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
@@ -237,6 +248,13 @@ input[name=username] {
 @media (max-width: 767px) {
     .rule-points-guesses {
         padding: 15px 0;
+        margin-bottom: 10px; 
+    }
+}
+
+@media (max-width: 991px) {
+    .rule-points-guesses {
+        max-width: 70%;
     }
 }
 
@@ -247,11 +265,6 @@ input[name=username] {
     }
 }
 
-.rules-btn {
-    border-radius: 7px;
-}
-
-
 .conundrum-row {
     margin-top: 2.5%;
 }
@@ -261,7 +274,7 @@ input[name=username] {
 }
 
 .question-container {
-    background-color: rgba(255, 255, 255, .9);
+    background-color: rgba(255, 255, 255, .8);
     min-height: 335px;
     border-radius: 5px;
     overflow: hidden;
@@ -277,7 +290,7 @@ input[name=username] {
 
 .question-head {
     width: 100%;
-    background-color: gray;
+    background-color: rgba(107, 109, 127, 1);
     text-align: center;
 }
 
@@ -322,11 +335,6 @@ input[name=answer] {
     margin-bottom: 10px;
 }
 
-input[name=submit] {
-
-    margin-right: 20px;
-}
-
 .guesses-body {
     width: 100%;
     min-height: 100px;
@@ -349,19 +357,26 @@ tr {
 
 /*---------learderboard.html------------*/
 
-.user-score-container {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    padding: 0 15px;
-    margin-bottom: 15px;
-}
 
 .leaderboard-heading {
     color: #fff;
     padding-bottom: 15px;
 }
 
+.user-score-container {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 0 15px;
+    margin-bottom: 15px;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 767px) {
+    .user-score-container {
+        width: 90%;
+    }
+}
 .users-score {
     padding: 15px 0;
 }
@@ -378,21 +393,17 @@ tr {
     box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
     overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 767px) {
     .leader-board-table {
-        width: 80%;
-        margin-bottom: 150px;
+        width: 90%;
     }
 }
 
 .table-row {
     margin-bottom: 30px;
-}
-
-.color-gray {
-    background-color: gray;
 }
 
 .leader-board-table td {
@@ -401,11 +412,12 @@ tr {
 }
 
 .table-row-gray {
-    background-color: lightgray;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    background-color: rgba(107, 109, 127, 1);
 }
 
-.table-row-white {
-    background-color: rgba(255, 255, 255, 0.5);
+.table-row-transparent {
+    background-color: rgba(255, 255, 255, 0);
 }
 
 #leaderboard-heading-td {

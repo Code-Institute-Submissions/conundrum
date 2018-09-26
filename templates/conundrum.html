@@ -4,10 +4,10 @@
 
 <div class="row conundrum-row-1">
     
-    <div class="rule-points-guesses col-xs-offset-3 col-xs-6 col-sm-offset-1 col-sm-10">
+    <div class="rule-points-guesses col-xs-offset-2 col-xs-8">
 
-        <div class="negative-points centering col-xs-12 col-sm-4">
-            <p><b>Guesses remaining:</b> {{ guesses_remaining }}</p>
+        <div class="negative-points hidden-xs centering col-xs-12 col-sm-4">
+            <p><b>Attempts Left:</b> {{ guesses_remaining }}</p>
         </div>
 
         <div class="centering col-xs-12 col-sm-4">
@@ -18,13 +18,19 @@
             <p><b>Score: {{score}} points </b></p>
             {% endif %}
             
-            
         </div>
         
-        <div class="centering col-xs-12 col-sm-4">
+        <div class="centering hidden-xs col-xs-12 col-sm-4">
             <button class="rules-btn">Rules</button> 
         </div>
         
+        <div class="negative-points hidden-sm hidden-md hidden-lg centering col-xs-12 col-sm-4">
+            <p><b>Attempts Left:</b> {{ guesses_remaining }}</p>
+        </div>
+        
+        <div class="centering hidden-sm hidden-md hidden-lg col-xs-12 col-sm-4">
+            <button class="rules-btn">Rules</button> 
+        </div>
     </div>
     
 </div>
@@ -56,7 +62,7 @@
             <li>Good Luck!</li>
         </ul>
         <div class="centering">
-            <button class="game-rules-ok-btn">okay</button>
+            <button class="game-rules-ok-btn">Okay</button>
         </div>
 
     </div>
@@ -142,7 +148,7 @@
                     
                     {% endif %} 
                     {% if loop.index % 2 == 1 %}
-                    <tr class="table-row-white">
+                    <tr class="table-row-transparent">
                         <td># {{ loop.index }}. </td>
                         <td>{{ answer }}</td>
                         <td></td>
