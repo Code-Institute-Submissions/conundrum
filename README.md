@@ -1,7 +1,7 @@
 # Conundrum
 
-- This is the third milestone project for the Full-Stack software development course through Code Institute. I named my project Conundrum as thats exactly what the user will have to solve.
-The requirement of this project was to create a quiz game, that would ask the user questions for them to answer. If the answer to the question is correct then the user would be directed to 
+- This is the third milestone project for the Full-Stack software development course through Code Institute. I named my project Conundrum as that's exactly what the user will have to go through.
+The requirement of this project was to create a quiz game that would ask the user questions for them to answer. If the answer to the question is correct then the user would be directed to 
 the next question. If the answer to the question is incorrect, then that incorrect answer would be displayed for the user to see. The user than would be able to have another shot at guessing 
 the answer. After all the questions are answered the user is directed to a leaderboard page with all the top scores.
 
@@ -12,34 +12,34 @@ the answer. After all the questions are answered the user is directed to a leade
 
 ### Strategy
 - Design an app for those interested in solving logic based riddles. 
-- As a user I would expect to be asked a question. If I answer correctly I would receive some form of points and move onto the next 
+- As a user I would expect to be asked a question. If I answered correctly, I would receive some form of points and move onto the next 
 question. If I answer incorrectly, I would expect to see negative points and be able to try and guess the answer again. If I couldn't guess the answer I'd 
 expect to be able to skip to the next question.
 
 ### Scope
 #### features
 
-##### Head and Footer
+##### Header and Footer
 - A navigation bar with two links. One that redirects to the index page and the other that redirects to the leaderboard.
-- A page icon that redirects to the index page
+- A page icon that redirects to the index page.
 - A GitHub icon that opens a new page to my GitHub repository.
 
 ##### index
 - A login page where a visitor can create a username in the input field.
 
 ##### Question page.
-- A welcome message is displayed greeting the user by their name. The box fades away when the "close" button is pressed
-- There is a section where the questions are displayed. The user has a input field to enter their answer to the question or button to skip to the next question.
-- When the user answers incorrectly, their answer will be displayed in the section next to the question.
+- A welcome message is displayed greeting the user by their name.
+- There is a section where the questions are displayed. 
+- The user has a input field to enter their answer or a button to skip to the next question.
+- When the user answers incorrectly, their answer will be displayed in the incorrect guesses section.
 - There is a bar that displays the users current score, remaining amount of guesses and a button that when clicked, displays the games rules and
 scoring.
-- If the users remaining guesses reaches 0 than the question be skipped to the next question.
+- If the users remaining guesses reaches 0 than the question will be skipped to the next question.
 
 ##### leaderboard page
 - Once the user has been through all of the questions, the page gets redirected to the leaderboard.
 - This show the users final score and a different message will display if they got on the leaderboard or not.
 - A table shows the top ten scores and the name of the user that obtained that score.
-- If the user tries to go back, the page is redirected to the index page.
 
 ### Wire Frames
 - [Wire Frames](https://github.com/brettcutt/conundrum/blob/master/static/images/wireframes/wireframe.md)
@@ -48,7 +48,7 @@ scoring.
 
 ##### Python
 Was used to: 
-- Implement the logic, functionality and responses of the game.
+- Implement the logic, functionality and responses of the project.
 - https://www.python.org/
 
 ##### Jquery
@@ -69,7 +69,7 @@ Was used to:
 
 ##### HTML 5
 Was used to:
-- position and format the elements in the app.
+- position and format the html elements.
 
 ##### CSS 3
 Was used to:
@@ -83,7 +83,7 @@ Was used for:
 
 ##### Google Font
 Was used for:
-- For the font style "rubik"
+- For the font styles "rubik" and nanum gothic
 - https://fonts.google.com/
 
 ### Testing 
@@ -91,9 +91,9 @@ Was used for:
 #### Automated Testing
 The automated test involves: 
 - Checking if a txt file has content with self.assertGreater(len(file), 0)
-- Making sure that it contains the infomation that is suppose to be in a particular file with "assetIn" and checking infomation that isn't in the file with "assertNotIn".
-- Check that there are the dame amount of answers as there are questions.
-- Making sure that the score works, if the user correctly answers the question, they get +10 points. An Incorrect answer is -1 point and a skip is -2 points. If the user is on the last page, a correct answer
+- Making sure a file contained the correct content with "assetIn" and checking for content that isn't in the file with "assertNotIn".
+- Check that there are the same amount of answers as there are questions.
+- Making sure that the scoring works. If the user correctly answers the question, they get +10 points. An Incorrect answer is -1 point and a skip is -2 points. If the user is on the last page, a correct answer
 or skip returns a string saying they've been redirected. A incorrect answer again only deduct 1 point.
 - Click [here](https://github.com/brettcutt/conundrum/blob/master/test.py) to see my automated tests 
 
@@ -102,31 +102,30 @@ or skip returns a string saying they've been redirected. A incorrect answer agai
 ##### Index.html and base.html(header and footer)
 The manual test involved checking: 
 - The maze icon redirects back the the index (home) page.
-- The "Home" navigation link redirects back to the index (home) page.
-- The "Leaderboard" navigation link redirects to the leaderboard (leaderboard.html) page.
+- The "Home" navigation link redirects back to the index(home) page.
+- The "Leaderboard" navigation link redirects to the leaderboard(leaderboard.html) page.
 - The username input field when submitted with no text, rerenders the index.html page and returns a string saying to enter a user name.
-- That entering a username and submitting redirects to the conundrum.html page.
+- That entering a username and submitting, redirects to the conundrum.html page.
 - Clicking the GitHub icon opens a new page to my GitHub repository.
 
 ##### conundrum.html
 The manual test involved checking:
 - The users file for incorrect answers is created.
 - The welcome message fades away after 2 seconds.
-- The rules button toggles the rules box as well as the close button only hiding the box.
+- The "rules" button toggles the rules box as well as the "close" button only hides the box.
 - Submitting an empty input field redirects to the same page and keeps any incorrect answers if there are any. 
 - Entering a incorrect answer: deducts 1 point from the score, deduct 1 remaining guess and displays that answer in the "incorrect guesses" box.
-- Correct and incorrect answers, and skips are displayed in the questions container including the amount added or taken off.
-- Entering an incorrect answer 10 times redirects to the next page as well as having a total of 10 points deducted plus another point because it is also a skip.
+- Correct and incorrect answers, and skips have their scores displayed on redirection.
+- Entering an incorrect answer 10 times redirects to the next page. This results in a total of 9 points being deducted for the incorrect answers and 2 points deducted because a skip was initiated.
 - Answering correctly redirects to the next question, adds 10 points to the score, clears the incorrect answers and refreshes the remaining guesses.
 - All links work and redirect to the appropriate pages.
 - The different combination of correct answers, incorrect answers, skips all total the score up appropriately.
 
-
 ##### leaderboard.html
 The manual test involved checking:
 - The users file for incorrect answers is deleted.
-- If the users final score is the correct score, and if it is greater than the 10th position and message displays saying well done for making the leaderboard. If the score is less
-than the 10th position a message displays saying sorry you didn't make the leaderboard.
+- If the users final score is the score is greater than the 10th position on the leaderboard, a message displays saying well done for making the leaderboard. If the score is less
+than the 10th position, a message displays saying sorry you didn't make the leaderboard.
 - The leaderboard displays the top ten scores 
 - If the user tries to go back to the last question, the page redirects to the index(home) page.
 - All links work and redirect to the appropriate pages.
@@ -154,7 +153,7 @@ I don't find this a problem because the user stil cannot cheat and change their 
 - Going backwards from the leaderboard page went back to the last question. However if the user tried to answer again, then the page redirected back to the index(home) page.
 I don't find this a problem because the user stil cannot cheat and change their score.
 
-##### Safari
+##### Opera
 - All passed
 
 ##### My Mobile phone running Chrome
@@ -189,23 +188,26 @@ Then I searched for a code that checked if the users file exists. Then in an if 
 - os.path.exists(userfile)
 
 ##### Keeping a count
-- One of the more frustrating issues was keeping track of a score. Originally if the user answered the question correctly I expected a count to += 1. When the answer was submited ("POST") the count would increase to 1.
+- One of the more frustrating issues was keeping track of a score. Originally if the user answered the question correctly, I expected a count to += 1. When the answer was submited ("POST") the count would increase to 1.
 However when the page redirected ("GET") the count would reset back to 0. 
-- My next idea was adding "1" to a count.txt file and reading the length when a question was answered correctly, but this became a problem when multiple users were playing. It would affect the scores and questions others 
--users had
-where using the same points sheet.
+- My next idea was adding "1" to a count.txt file and reading the length when a question was answered correctly, but this became a problem when multiple users were playing. It would affect the scores and questions other
+-users had where using the same points sheet.
 - I had seen on another project that score(count) was recorder in the endpoint. I used this method for most of my project when building it. I wasn't 
 really happy with this method because I could cheat by manually entering a score in the endpoint, which would end up on the leaderboard. 
-- While searching through the slack forum other students were wrting about sessions and user sessions. I looked more into this and found that sessions would keep a count.
+- While searching through the slack forum, other students were wrting about sessions and user sessions. I looked more into this and found that sessions would keep a count.
 - https://stackoverflow.com/questions/42671298/python-counter-add-and-subtract
 - https://www.youtube.com/watch?v=T1ZVyY1LWOg
+
+##### UnicodeDecodeError
+- After copying and pasting riddles in the quetions.txt file, I kept on receiving an error on the second question. This was due to a foreign apostrophe character,
+which was difficult to identify but something small that was causing the error. 
 
 ### Code validation
 #### CSS
 - Using the jigsaw validator, the main.css file passed with no errors.
 
 #### HTML 5
-- Using W3C validator, the files returned no html5 related errors. Flask related errors were returned which is expected and does not result as poor coding. 
+- Using W3C validator, the files returned no html5 related errors. Flask related errors were returned which is expected. 
 
 #### Python
 - There are no errors. Only warning about lines being too long.
@@ -259,7 +261,10 @@ really happy with this method because I could cheat by manually entering a score
 
 ## Credits
 ### Content
-Add where the riddles came from here
+##### The riddles cames from the following:
+- https://www.braingle.com/brainteasers/104/who-makes-it-has-no-need-of-it.html
+- https://www.thesun.co.uk/fabulous/6885182/14-riddles-how-many-can-you-solve/
+- https://riddles.fyi/page/5/
 
 ### Code
 ##### random secret key, understanding sessions
@@ -292,10 +297,4 @@ http://www.compciv.org/guides/python/fundamentals/sorting-collections-with-sorte
 - httpstatuses.com
 
 ##### The Code Institute slack forum
--Reading about other student questions, answers and problems greatly helps.  
- 
-
-things to fix:
-
-single digits appearing on the leaderboard
-
+- Reading about other student questions, answers and problems greatly helps.  
