@@ -254,7 +254,6 @@ def conundrum(username):
 def leaderboard(username):
     # prints out the leaderboard scores and usernames
     results = leader_results()
-    session.clear()
     return render_template("leaderboard.html", results=results,
                                                 user_final_score=leaderboard_final_score(),
                                                 username=username,
