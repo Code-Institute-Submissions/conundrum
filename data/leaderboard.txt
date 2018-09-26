@@ -1,20 +1,20 @@
 Brett
-50
+ 99
 Lisa
-45
+ 90
 John
-40
+ 76
 Matt
-35
+ 71
 Rebecca
-30
-Michael
-25
+ 64
 Amy
-20
-Paul
-15
+ 39
 Martin
-10
+ 69
 Scott
-05
+  5
+Chris
+ 10
+Barry
+  2

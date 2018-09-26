@@ -51,11 +51,17 @@ class test_run(unittest.TestCase):
        Test 5. Testing that the correct questions are being read from the answers.txt file.
         """
         answer_file = run.read_questions()
-        self.assertIn("1. What is the capital of Australia?", answer_file)
-        self.assertIn("2. What is the capital of Ireland?", answer_file)
-        self.assertIn("3. What is the capital of England?", answer_file)
-        self.assertIn("4. What is the capital of France?", answer_file)
-        self.assertIn("5. What is the capital of Japan?", answer_file)
+        self.assertIn("What flies without eyes and cries without eyes?", answer_file)
+        self.assertIn("I'm always hungry and must be fed, the finger I touch will soon turn red, what am I?", answer_file)
+        self.assertIn("What has a bed but doesn't sleep and a mouth but never eats?", answer_file)
+        self.assertIn("I have a brother that you can see but not hear. When I come after my brother and you can hear me but not see me. What am I?", answer_file)
+        self.assertIn("Who makes it, has no need of it. Who buys it, has no use for it. Who uses it doesn't know it. What is it?", answer_file)
+        self.assertIn("I have seas without water, coasts without sand, towns without people and mountains without land. What am I?", answer_file)
+        self.assertIn("I don't have eyes, but once I did see. Once I had thoughts, but now I'm white and empty. What am I?", answer_file)
+        self.assertIn("I can be written, I can be spoken, I can be exposed, I can be broken. What am I?", answer_file)
+        self.assertIn("This old one runs forever but never moves at all. It has no lungs but has a mighty roar. What am I?", answer_file)
+        self.assertIn("I go up and I go down, towards the sky and the ground. I'm present and past tense too. What am I?", answer_file)
+        
         self.assertNotIn("This is not in", answer_file )
         print("test_question_in_question_file \n")
         
@@ -66,11 +72,16 @@ class test_run(unittest.TestCase):
        Test 5. Testing that the correct answers are being read from the answers.txt file.
         """
         answer_file = run.read_answers()
-        self.assertIn("answer 1", answer_file)
-        self.assertIn("answer 2", answer_file)
-        self.assertIn("answer 3", answer_file)
-        self.assertIn("answer 4", answer_file)
-        self.assertIn("answer 5", answer_file)
+        self.assertIn("clouds", answer_file)
+        self.assertIn("fire", answer_file)
+        self.assertIn("river", answer_file)
+        self.assertIn("thunder", answer_file)
+        self.assertIn("coffin", answer_file)
+        self.assertIn("map", answer_file)
+        self.assertIn("skull", answer_file)
+        self.assertIn("news", answer_file)
+        self.assertIn("waterfall", answer_file)
+        self.assertIn("seesaw", answer_file)
         self.assertNotIn("This is not in", answer_file )
         print("test_answer_in_answer_file passed \n")
             
@@ -94,7 +105,7 @@ def scoring(index, answer):
             return -1
         print(page_number)  
     
-    elif index == 4:
+    elif index == 9:
         if answer == "skip":
             return "redirected to the next page"
         elif answer == answer_file[index]:
@@ -104,17 +115,17 @@ def scoring(index, answer):
         print(page_number) 
     
     
-assert scoring(0, "answer 1") == 10, "Answer doesn't match the question answer"
-assert scoring(1, "answer 2") == 10, "Answer doesn't match the question answer"
-assert scoring(2, "answer 3") == 10, "Answer doesn't match the question answer"
-assert scoring(0, "answer 4") == -1, "Answer does match the question answer"
-assert scoring(1, "answer 5") == -1, "Answer does match the question answer"
-assert scoring(2, "answer 6") == -1, "Answer does match the question answer"
+assert scoring(0, "clouds") == 10, "Answer doesn't match the question answer"
+assert scoring(1, "fire") == 10, "Answer doesn't match the question answer"
+assert scoring(2, "river") == 10, "Answer doesn't match the question answer"
+assert scoring(0, "fire") == -1, "Answer does match the question answer"
+assert scoring(1, "river") == -1, "Answer does match the question answer"
+assert scoring(2, "thunder") == -1, "Answer does match the question answer"
 
 assert scoring(0, "skip") == -2, "answer is not skip"
 
-assert scoring(4, "answer 5") == "redirected to the next page", "answer is not the last answer"
-assert scoring(4, "skip") == "redirected to the next page", "answer is not the last answer"
-assert scoring(4, "answer 1") == -1, "answer is not the last answer"
+assert scoring(9, "seesaw") == "redirected to the next page", "answer is not the last answer"
+assert scoring(9, "skip") == "redirected to the next page", "answer is not the last answer"
+assert scoring(9, "clouds") == -1, "answer is not the last answer"
 
 print("scoring passed")
