@@ -1,11 +1,11 @@
-clouds
-fire
+tomorrow
+chalkboard
+rain
 river
+shadow
+fire
 thunder
 coffin
 map
 skull
-news
-waterfall
-seesaw
 end
