@@ -142,11 +142,6 @@ footer {
 }
 
 /*---------Index.htm--------------l*/
-@media (max-width: 991px) {
-    .index-row {
-    transform:translateY(60%);
-}
-}
 #username-submit-form {
     display: inline-block;
 }
@@ -168,7 +163,7 @@ footer {
 
 @media (max-width: 991px) {
     .username-container {
-        transform:translateY(-50%);
+        margin-top: 18%; 
     }
 }
 
