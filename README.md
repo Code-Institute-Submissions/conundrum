@@ -93,7 +93,7 @@ The automated test involves:
 - Checking if a txt file has content with self.assertGreater(len(file), 0)
 - Making sure a file contained the correct content with "assetIn" and checking for content that isn't in the file with "assertNotIn".
 - Check that there are the same amount of answers as there are questions.
-- Making sure that the scoring works. If the user correctly answers the question, they get +10 points. An Incorrect answer is -1 point and a skip is -2 points. If the user is on the last page, a correct answer
+- Making sure that the scoring works. If the user correctly answers the question, they get +10 points. An Incorrect answer is -1 point and a skip is -5 points. If the user is on the last page, a correct answer
 or skip returns a string saying they've been redirected. A incorrect answer again only deduct 1 point.
 - Click [here](https://github.com/brettcutt/conundrum/blob/master/test.py) to see my automated tests 
 
@@ -116,7 +116,7 @@ The manual test involved checking:
 - Submitting an empty input field redirects to the same page and keeps any incorrect answers if there are any. 
 - Entering a incorrect answer: deducts 1 point from the score, deduct 1 remaining guess and displays that answer in the "incorrect guesses" box.
 - Correct and incorrect answers, and skips have their scores displayed on redirection.
-- Entering an incorrect answer 10 times redirects to the next page. This results in a total of 9 points being deducted for the incorrect answers and 2 points deducted because a skip was initiated.
+- Entering an incorrect answer 5 times redirects to the next page. This results in a total of 5 points being deducted.
 - Answering correctly redirects to the next question, adds 10 points to the score, clears the incorrect answers and refreshes the remaining guesses.
 - All links work and redirect to the appropriate pages.
 - The different combination of correct answers, incorrect answers, skips all total the score up appropriately.

@@ -12,10 +12,10 @@
 
         <div class="centering col-xs-12 col-sm-4">
             {% if score == 1 or score == -1 %}
-            <p><b>Score: {{score}} point </b></p>
+            <p class="score_font-size"><b>Score: {{score}} point </b></p>
             {% endif %}
             {% if score == 0 or score > 1 or score < -1 %}
-            <p><b>Score: {{score}} points </b></p>
+            <p class="score_font-size"><b>Score: {{score}} points </b></p>
             {% endif %}
         </div>
         
@@ -59,11 +59,11 @@
         </div>
         
         <ul>
-            <li>All the answers are a single word.</li>
+            <li>All the answers are a single worded.</li>
             <li>A correct answer is worth 10 points.</li>
             <li>An incorrect answer deducts 1 point from the score.</li>
-            <li>Skipping a question deducts 2 points from the score.</li>
-            <li>You have 10 guesses before a skip is initiated. This results in 2 points being deducted.</li>
+            <li>Skipping a question deducts 5 points from the score.</li>
+            <li>You have 5 attempts before going to the next question.</li>
             <li>Good Luck!</li>
         </ul>
         
@@ -95,7 +95,7 @@
                 
                 <!--displays positive/negative scores depending on the answer, position absolute and hidden after 2 seconds-->
                 <div class="display_positive_negative_points">
-                    
+                    <div class="inner_positive_negative_points">
                     {% if page_number != 0 and positive_negative_points == 0 %}
                     <p class="positive_points"> {{ answer }} is correct <br>+10 Points</p>
                     {% endif %} 
@@ -105,8 +105,14 @@
                     {% endif %} 
                     
                     {% if positive_negative_points == 2 %} 
-                    <p class="negative_points"> Question Skipped <br> -2 Points</p>
+                    <p class="negative_points"> Question Skipped <br> -5 Points</p>
                     {% endif %}
+                    
+                    {% if positive_negative_points == 3 %} 
+                    <p class="negative_points"> {{ incorrect[-1] }} is incorrect <br>-1 Point</p>
+                    {% endif %}
+                    
+                    </div>
                 </div>
                 <!--displays positive/negative scores depending on the answer, position absolute and hidden after 2 seconds-->
                 

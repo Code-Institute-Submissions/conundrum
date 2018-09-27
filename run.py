@@ -42,7 +42,7 @@ def number_of_lines_in_leaderboard():
 
 # For displaying the number of remaining guesse
 def remaining_guesses(username):
-    return 10 - number_of_incorrect_answers(username)
+    return 5 - number_of_incorrect_answers(username)
 
 
 # reads the lines in questions.txt
@@ -208,14 +208,12 @@ def conundrum(username):
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
 
-            elif 'skip' in request.form or number_of_incorrect_answers(username) == 9:
+            elif 'skip' in request.form:
                 # If the skip botton is pressed or the user has had 9 incorrect answers, clear the incorrect answers
                 clear_Incorrect_answers(username)
-
+                
                 if page_number < number_of_questions():
-                    # If the page number(question number) is less than the total amount of questions. Add negative scores and increase the page number
-                    # so the question changes. redirect to the same page.
-                    session['score'] -= 2
+                    session['score'] -= 5
                     session['page_number'] += 1
                     session["positive_negative_points"] = 2
                     return redirect(url_for('conundrum', username=username))
@@ -223,7 +221,23 @@ def conundrum(username):
                 else:
                     # If the page number(question number) is equal to the total amount of questions, take the negative scores, write to the leaderboard file and
                     # redirect to the leaderboard page.
-                    score = score - 2
+                    score = score - 5
+                    final_score(username, score)
+                    os.remove(userfile)
+                    return redirect(url_for('leaderboard', username=username))
+            
+            elif number_of_incorrect_answers(username) == 4:
+                clear_Incorrect_answers(username)
+                if page_number < number_of_questions():
+                    session['score'] -= 1
+                    session['page_number'] += 1
+                    session["positive_negative_points"] = 3
+                    return redirect(url_for('conundrum', username=username))
+
+                else:
+                    # If the page number(question number) is equal to the total amount of questions, take the negative scores, write to the leaderboard file and
+                    # redirect to the leaderboard page.
+                    score = score - 1
                     final_score(username, score)
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
