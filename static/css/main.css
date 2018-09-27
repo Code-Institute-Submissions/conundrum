@@ -142,7 +142,11 @@ footer {
 }
 
 /*---------Index.htm--------------l*/
-
+@media (max-width: 991px) {
+    .index-row {
+    transform:translateY(60%);
+}
+}
 #username-submit-form {
     display: inline-block;
 }
@@ -164,7 +168,7 @@ footer {
 
 @media (max-width: 991px) {
     .username-container {
-        margin-top: 20%;
+        transform:translateY(-50%);
     }
 }
 
@@ -263,6 +267,10 @@ input[name=username] {
     }
 }
 
+.score_font-size {
+    font-size: 18px;
+}
+
 .conundrum-row {
     margin-top: 2.5%;
 }
@@ -307,11 +315,19 @@ input[name=username] {
 }
 
 .display_positive_negative_points {
+    font-size: 18px;
     position: absolute;
-    bottom: 100px;
+    bottom: 150px;
     margin: 0 auto;
     left: 0;
     right: 0;
+}
+
+.inner_positive_negative_points {
+    display: inline-block;
+    background-color: rgba(255,255,255, 0.9);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .positive_points {
@@ -345,7 +361,7 @@ input[name=answer] {
 .guesses-table td {
     width: 33%;
     font-weight: bold;
-    padding: 3px 0;
+    padding: 5px 0;
 }
 
 
