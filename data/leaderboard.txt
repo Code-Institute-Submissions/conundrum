@@ -13,8 +13,12 @@ Amy
 Martin
  69
 Scott
-  5
+ 56
 Chris
- 10
+ 42
 Barry
-  2
+ 40
+Brett
+ 10
+Brett
+ 42

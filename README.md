@@ -89,10 +89,11 @@ Was used for:
 ### Testing 
 
 #### Automated Testing
-The automated test involves: 
+The automated test involves:
 - Checking if a txt file has content with self.assertGreater(len(file), 0)
 - Making sure a file contained the correct content with "assetIn" and checking for content that isn't in the file with "assertNotIn".
 - Check that there are the same amount of answers as there are questions.
+- The "scoring test" was based on the original scoring. This changed towards the end of the project after other students pointed out a better alternative.
 - Making sure that the scoring works. If the user correctly answers the question, they get +10 points. An Incorrect answer is -1 point and a skip is -5 points. If the user is on the last page, a correct answer
 or skip returns a string saying they've been redirected. A incorrect answer again only deduct 1 point.
 - Click [here](https://github.com/brettcutt/conundrum/blob/master/test.py) to see my automated tests 
@@ -114,10 +115,10 @@ The manual test involved checking:
 - The welcome message fades away after 2 seconds.
 - The "rules" button toggles the rules box as well as the "close" button only hides the box.
 - Submitting an empty input field redirects to the same page and keeps any incorrect answers if there are any. 
-- Entering a incorrect answer: deducts 1 point from the score, deduct 1 remaining guess and displays that answer in the "incorrect guesses" box.
-- Correct and incorrect answers, and skips have their scores displayed on redirection.
-- Entering an incorrect answer 5 times redirects to the next page. This results in a total of 5 points being deducted.
-- Answering correctly redirects to the next question, adds 10 points to the score, clears the incorrect answers and refreshes the remaining guesses.
+- Entering a incorrect answer displays the incorrect answer on the redirected page screen and stores it in the incorrect guesses section.
+- Entering an incorrect answer 5 times redirects to the next question. The redirected page displays a message for 2 seconds saying " 'answer' is incorrect. question skipped, +0 points", incorrect answers are cleared.
+- Answering correctly redirects to the next question, adds (10 - (the number of incorrect guesses * 2)) to the score and displays a 2 second message saying "'answer' is correct +'num' points".
+- On the last question: answering correctly, skipping or answering incorrectly 5 times redirects to the leaderboard screen.
 - All links work and redirect to the appropriate pages.
 - The different combination of correct answers, incorrect answers, skips all total the score up appropriately.
 
@@ -197,6 +198,12 @@ really happy with this method because I could cheat by manually entering a score
 - While searching through the slack forum, other students were wrting about sessions and user sessions. I looked more into this and found that sessions would keep a count.
 - https://stackoverflow.com/questions/42671298/python-counter-add-and-subtract
 - https://www.youtube.com/watch?v=T1ZVyY1LWOg
+
+##### Student testing
+- I allowed friends, family and other code institute students to test my project. I only constructive criticism I recieved was from fellow students about the style of scoring. Originally I had each correct answer 
+being worth 10 points, incorrect answers were worth -1 point and a skip was worth -5 points. This scoring system allowed the user to achieved an overall negative score which didn't seen right by others.
+Instead of losing points on skips and incorrect answers, the scoring changed so that if the answer was correctly guessed, the question would be worth 10 points and 2 points were deducted for each incorrect answer.
+So if the user guessed incorrectly 5 times or skipped they would be redirected to the next question and lose no points.
 
 ##### UnicodeDecodeError
 - After copying and pasting riddles in the quetions.txt file, I kept on receiving an error on the second question. This was due to a foreign apostrophe character,
@@ -297,4 +304,5 @@ http://www.compciv.org/guides/python/fundamentals/sorting-collections-with-sorte
 - httpstatuses.com
 
 ##### The Code Institute slack forum
-- Reading about other student questions, answers and problems greatly helps.  
+- Reading about other student questions, answers and problems greatly helps.
+- Good constructive criticism about the scoring from students Jo Wings and Eventyret.

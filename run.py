@@ -3,7 +3,6 @@ from random import randint
 from flask import Flask, render_template, redirect, request, url_for, session
 import os.path
 
-
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
@@ -17,7 +16,7 @@ def write_file(file_name, file_type, data):
 
 # function to read files
 def read_file(file_name):
-    with open(file_name, "r" ) as file:
+    with open(file_name, "r") as file:
         lines = file.read().splitlines()
         return lines
 
@@ -98,7 +97,8 @@ def empty_user_form():
     return empty
 
 
-# returns the question number, and number of questions displayed on the conundrum.html
+# returns the question number, and number of questions displayed on the
+# conundrum.html
 def question_number(page_number):
     return "Question {0} of {1}".format(page_number + 1, number_of_questions()+1)
 
@@ -107,21 +107,22 @@ def question_number(page_number):
 def final_score(username, score):
     if score < 10:
         score = write_file("data/leaderboard.txt", "a", username + "\n" + "  " + str(score) + "\n")
-        return score
     elif score > 99:
-        score = write_file("data/leaderboard.txt", "a", username + "\n" +  str(score) + "\n")
-        return score
+        score = write_file("data/leaderboard.txt", "a", username + "\n" + str(score) + "\n")
     else:
         score = write_file("data/leaderboard.txt", "a", username + "\n" + " " + str(score) + "\n")
-        return score
+    return score
 
 
-# For the leaderboard when sorting the top ten score, this sorts the second index postion. Called in leader_results().
+# For the leaderboard when sorting the top ten score, this sorts the second
+# index postion. Called in leader_results().
 def sort_score(x):
     return x[1]
 
 
-# This reads the score and username from the leaderboard.txt file. Sorts the pairs into a dictionary and then sorts them by score order from highest to lowest.
+# This reads the score and username from the leaderboard.txt file.
+# Sorts the pairs into a dictionary and then sorts them by score order from
+# highest to lowest.
 def leader_results():
     lines = read_file("data/leaderboard.txt")
     name = []
@@ -135,7 +136,7 @@ def leader_results():
 
     result = sorted(name_and_score, key=sort_score, reverse=True)
     return result
-print(leader_results())
+
 
 # Shows the individual users score on the leaderboard screen.
 def leaderboard_final_score():
@@ -144,8 +145,13 @@ def leaderboard_final_score():
 
 
 # This clears the incorrect answers from the users file.
-def clear_Incorrect_answers(username):
+def clear_incorrect_answers(username):
     write_file("data/incorrect_answers_" + username + ".txt", "w", "")
+    
+ 
+# This is the scoring method if the question is answered correctly.  
+def correct(username):
+    return (10 - (number_of_incorrect_answers(username) * 2))
 
 
 # Index Page
@@ -154,20 +160,25 @@ def index():
 
     session['score'] = 0
     session['page_number'] = 0
-    session['positive_negative_points'] = 0
+    session['message_display_number'] = 0
+    session['display_points'] = 0
+    session['last_incorrect_answer'] = ""
 
     if request.method == "POST":
-        # If the username field is empty, redirect to the same page and return a string, empty = "A username is required to play.".
-        if request.form["username"] == "":
+        # If the username field is empty, redirect to the same page and return
+        # a string, empty = "A username is required to play.".
+        if request.form['username'] == "":
             return render_template("index.html", empty=empty_user_form())
 
         else:
-            # Creates a new file for the user in their name. Clears any answers before entering in case a user with the same name already created a file.
+            # Creates a new file for the user in their name. Clears any answers
+            # before entering in case a user with the same name already created
+            # a file.
             # Redirect to the conundrum page
             session['username'] = request.form['username']
             user = session['username']
             create_incorrect_answer_form(user)
-            clear_Incorrect_answers(user)
+            clear_incorrect_answers(user)
             return redirect(url_for('conundrum', username=user))
 
     return render_template("index.html")
@@ -178,66 +189,84 @@ def index():
 @app.route('/conundrum/<username>', methods=["GET", "POST"])
 def conundrum(username):
 
+    # These are various variables used to display different values in the html
+    # pages.
     score = session['score']
     page_number = session['page_number']
-    positive_negative_points = session["positive_negative_points"]
-
-    userfile = "data/incorrect_answers_" + username + ".txt"  # goes with os.remove(userfile) to delete the user file when the leaderboard is reached.
+    display_points = session["display_points"]
+    last_incorrect_answer = session['last_incorrect_answer']
+    message_display_number = session["message_display_number"]
+    # goes with os.remove(userfile) to delete the user file when the
+    # leaderboard is reached.
+    userfile = "data/incorrect_answers_" + username + ".txt"
 
     if os.path.exists(userfile):
         # If a user file exists continue. Used to prevent cheating.
         if request.method == "POST":
 
             if request.form["answer"].lower() == correct_answer(page_number) and not 'skip' in request.form:
-                # If the answer entered into the answer input box is the same as in the index position of answers.txt. Clear the user incorrect answers file
-                clear_Incorrect_answers(username)
+                # If the answer entered into the answer input box is the same as
+                # in the index position of answers.txt. Clear the user incorrect
+                # answers file
 
                 if page_number < number_of_questions():
-                    # If the page number(question number) is less than the total amount of questions, add the positive scores and increase the page number
-                    # so the question changes. redirect to the same page
-                    session['score'] += 10
+                    # If the page number(question number) is less than the total
+                    # amount of questions, add the positive scores and increase
+                    # the page number so the question changes. redirect to the
+                    # same page
                     session['page_number'] += 1
-                    session["positive_negative_points"] = 0
+                    session['score'] += correct(username)
+                    session["message_display_number"] = 0
+                    session["display_points"] = correct(username)
+                    clear_incorrect_answers(username)
                     return redirect(url_for('conundrum', username=username))
 
                 else:
-                    # If the page number(question number) is equal to the total amount of questions, add the positive scores write to the leaderboard file and
-                    # redirect to the leaderboard page. Final_score writes to the leaderboard.txt file
-                    score = score + 10
+                    # If the page number(question number) is equal to the total
+                    # amount of questions, add the positive scores write to the
+                    # leaderboard file and
+                    # redirect to the leaderboard page. Final_score writes to
+                    # the leaderboard.txt file
+                    score = score + correct(username)
                     final_score(username, score)
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
 
             elif 'skip' in request.form:
-                # If the skip botton is pressed or the user has had 9 incorrect answers, clear the incorrect answers
-                clear_Incorrect_answers(username)
-                
+                # If the skip button is pressed or the user has had 5 incorrect
+                # answers, clear the incorrect answers
+                clear_incorrect_answers(username)
+
                 if page_number < number_of_questions():
-                    session['score'] -= 5
                     session['page_number'] += 1
-                    session["positive_negative_points"] = 2
+                    session["message_display_number"] = 1
                     return redirect(url_for('conundrum', username=username))
 
                 else:
-                    # If the page number(question number) is equal to the total amount of questions, take the negative scores, write to the leaderboard file and
+                    # If the page number(question number) is equal to the total
+                    # amount of questions, take the negative scores, write to
+                    # the leaderboard file and
                     # redirect to the leaderboard page.
-                    score = score - 5
+                    score = score
                     final_score(username, score)
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
-            
+
             elif number_of_incorrect_answers(username) == 4:
-                clear_Incorrect_answers(username)
+                
                 if page_number < number_of_questions():
-                    session['score'] -= 1
                     session['page_number'] += 1
-                    session["positive_negative_points"] = 3
+                    session["message_display_number"] = 2
+                    write_incorrect_answer(username)
+                    session['last_incorrect_answer'] = read_incorrect_answers(username)[-1]
+                    clear_incorrect_answers(username)
                     return redirect(url_for('conundrum', username=username))
 
                 else:
-                    # If the page number(question number) is equal to the total amount of questions, take the negative scores, write to the leaderboard file and
+                    # If the page number(question number) is equal to the total
+                    # amount of questions, take the negative scores, write to
+                    # the leaderboard file and
                     # redirect to the leaderboard page.
-                    score = score - 1
                     final_score(username, score)
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
@@ -247,25 +276,30 @@ def conundrum(username):
                 return redirect(url_for('conundrum', username=username))
 
             elif request.form["answer"].lower() != correct_answer(page_number):
-                # If the guess is not equal to the answer. Take negative points, write the incorrect answer to the users incorrect answer form and redirect to the
+                # If the guess is not equal to the answer. Take negative points,
+                # write the incorrect answer to the users incorrect answer form
+                # and redirect to the
                 # same page.
-                session['score'] -= 1
-                session["positive_negative_points"] = 1
-
-                write_incorrect_answer(username)  # Writes the incorrect answers to the users incorrect answer file.
+                session["message_display_number"] = 3
+                write_incorrect_answer(username)  # Writes the incorrect answers
+                session['last_incorrect_answer'] = read_incorrect_answers(username)[-1]
+                # to the users incorrect answer file.
                 return redirect(url_for('conundrum', username=username))
     else:
         return redirect(url_for('index'))
     return render_template("conundrum.html", score=score,
-                                             userfile=userfile,
                                              username=username,
                                              page_number=page_number,
+                                             display_points=display_points,
+                                             answer_correct=correct(username),
                                              answer=change_answer(page_number),
                                              question=change_question(page_number),
                                              question_num=question_number(page_number),
                                              incorrect=read_incorrect_answers(username),
+                                             last_incorrect_answer=last_incorrect_answer,
+                                             message_display_number=message_display_number,
                                              guesses_remaining=remaining_guesses(username),
-                                             positive_negative_points=positive_negative_points)
+                                             number_incorrect_answers=number_of_incorrect_answers(username))
 
 # Leaderboard ------------------------------------------------------------------
 
