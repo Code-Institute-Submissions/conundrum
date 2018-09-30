@@ -200,7 +200,7 @@ def conundrum(username):
     # leaderboard is reached.
     userfile = "data/incorrect_answers_" + username + ".txt"
 
-    if os.path.exists(userfile):
+    if os.path.exists(userfile) and session['username']:
         # If a user file exists continue. Used to prevent cheating.
         if request.method == "POST":
 
