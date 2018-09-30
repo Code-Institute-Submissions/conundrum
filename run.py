@@ -1,5 +1,4 @@
 import os
-from random import randint
 from flask import Flask, render_template, redirect, request, url_for, session
 import os.path
 
@@ -39,28 +38,21 @@ def number_of_lines_in_leaderboard():
     return len(lines)
 
 
-# For displaying the number of remaining guesse
+# For displaying the number of remaining guesses.
 def remaining_guesses(username):
     return 5 - number_of_incorrect_answers(username)
 
 
-# reads the lines in questions.txt
+# reads the questions in questions.txt
 def read_questions():
     questions = read_file("data/questions.txt")
     return questions
 
 
-# reads the lines in answers.txt
+# reads the answers in answers.txt
 def read_answers():
     answers = read_file("data/answers.txt")
     return answers
-
-
-# Reads the answer.txt. the answers are determined by the page number.
-# used in conundrum.html to show that the user got the correct answer.
-def change_answer(page_number):
-    answer = read_answers()[-1 + page_number]
-    return answer.capitalize()
 
 
 # Reads the question.txt. Changes the question when the page number increases.
@@ -68,10 +60,22 @@ def change_question(page_number):
     return read_questions()[0 + page_number]
 
 
-# Reads the answer.txt. the answers are determined by the page number.
+# Reads answer.txt. The answers are determined by the page number.
 # The answer changes when the page_number increase.
 def correct_answer(page_number):
     return read_answers()[0 + page_number]
+
+
+# Used in conundrum.html to show that the user got the correct answer.
+def users_correct_answer(page_number):
+    answer = read_answers()[-1 + page_number]
+    return answer.capitalize()
+
+
+# This is the scoring method if the question is answered correctly.
+# Also used to display the users score on conundrum.html.
+def correct_answer_score(username):
+    return (10 - (number_of_incorrect_answers(username) * 2))
 
 
 # Writes the users incorrect answer to their incorrect answer file.
@@ -147,11 +151,6 @@ def leaderboard_final_score():
 # This clears the incorrect answers from the users file.
 def clear_incorrect_answers(username):
     write_file("data/incorrect_answers_" + username + ".txt", "w", "")
-    
- 
-# This is the scoring method if the question is answered correctly.  
-def correct(username):
-    return (10 - (number_of_incorrect_answers(username) * 2))
 
 
 # Index Page
@@ -189,21 +188,18 @@ def index():
 @app.route('/conundrum/<username>', methods=["GET", "POST"])
 def conundrum(username):
 
-    
+    # These are various variables used to display different values in the html
+    # pages.
+    score = session['score']
+    page_number = session['page_number']
+    display_points = session["display_points"]
+    last_incorrect_answer = session['last_incorrect_answer']
+    message_display_number = session["message_display_number"]
+    # goes with os.remove(userfile) to delete the user file when the
+    # leaderboard is reached.
     userfile = "data/incorrect_answers_" + username + ".txt"
 
-    if os.path.exists(userfile) and session['username']:
-        
-        # These are various variables used to display different values in the html
-        # pages.
-        score = session['score']
-        username = session['username']
-        page_number = session['page_number']
-        display_points = session["display_points"]
-        last_incorrect_answer = session['last_incorrect_answer']
-        message_display_number = session["message_display_number"]
-        # goes with os.remove(userfile) to delete the user file when the
-        # leaderboard is reached.
+    if os.path.exists(userfile):
         # If a user file exists continue. Used to prevent cheating.
         if request.method == "POST":
 
@@ -218,9 +214,9 @@ def conundrum(username):
                     # the page number so the question changes. redirect to the
                     # same page
                     session['page_number'] += 1
-                    session['score'] += correct(username)
+                    session['score'] += correct_answer_score(username)
                     session["message_display_number"] = 0
-                    session["display_points"] = correct(username)
+                    session["display_points"] = correct_answer_score(username)
                     clear_incorrect_answers(username)
                     return redirect(url_for('conundrum', username=username))
 
@@ -230,7 +226,7 @@ def conundrum(username):
                     # leaderboard file and
                     # redirect to the leaderboard page. Final_score writes to
                     # the leaderboard.txt file
-                    score = score + correct(username)
+                    score = score + correct_answer_score(username)
                     final_score(username, score)
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
@@ -256,7 +252,7 @@ def conundrum(username):
                     return redirect(url_for('leaderboard', username=username))
 
             elif number_of_incorrect_answers(username) == 4:
-                
+
                 if page_number < number_of_questions():
                     session['page_number'] += 1
                     session["message_display_number"] = 2
@@ -294,12 +290,12 @@ def conundrum(username):
                                              username=username,
                                              page_number=page_number,
                                              display_points=display_points,
-                                             answer_correct=correct(username),
-                                             answer=change_answer(page_number),
+                                             answer=users_correct_answer(page_number),
                                              question=change_question(page_number),
                                              question_num=question_number(page_number),
                                              incorrect=read_incorrect_answers(username),
                                              last_incorrect_answer=last_incorrect_answer,
+                                             answer_correct=correct_answer_score(username),
                                              message_display_number=message_display_number,
                                              guesses_remaining=remaining_guesses(username),
                                              number_incorrect_answers=number_of_incorrect_answers(username))
