@@ -189,18 +189,21 @@ def index():
 @app.route('/conundrum/<username>', methods=["GET", "POST"])
 def conundrum(username):
 
-    # These are various variables used to display different values in the html
-    # pages.
-    score = session['score']
-    page_number = session['page_number']
-    display_points = session["display_points"]
-    last_incorrect_answer = session['last_incorrect_answer']
-    message_display_number = session["message_display_number"]
-    # goes with os.remove(userfile) to delete the user file when the
-    # leaderboard is reached.
+    
     userfile = "data/incorrect_answers_" + username + ".txt"
 
     if os.path.exists(userfile) and session['username']:
+        
+        # These are various variables used to display different values in the html
+        # pages.
+        score = session['score']
+        username = session['username']
+        page_number = session['page_number']
+        display_points = session["display_points"]
+        last_incorrect_answer = session['last_incorrect_answer']
+        message_display_number = session["message_display_number"]
+        # goes with os.remove(userfile) to delete the user file when the
+        # leaderboard is reached.
         # If a user file exists continue. Used to prevent cheating.
         if request.method == "POST":
 
