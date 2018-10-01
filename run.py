@@ -313,4 +313,4 @@ def leaderboard(username):
                                                 number_in_leaderboard=number_of_lines_in_leaderboard(),
                                                 total_points=(number_of_questions() + 1) * 10)
 if __name__ == '__main__':
-    app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=True)
+    app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)
