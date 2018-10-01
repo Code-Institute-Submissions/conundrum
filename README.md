@@ -1,7 +1,7 @@
 # Conundrum
 
 - This is the third milestone project for the Full-Stack software development course through Code Institute. I named my project Conundrum as that's exactly what the user will have to go through.
-The requirement of this project was to create a quiz game that would ask the user questions for them to answer. If the answer to the question is correct then the user would be directed to 
+The requirement of this project were to create a quiz game that would ask the user questions for them to answer. If the answer to the question is correct then the user would be directed to 
 the next question. If the answer to the question is incorrect, then that incorrect answer would be displayed for the user to see. The user than would be able to have another shot at guessing 
 the answer. After all the questions are answered the user is directed to a leaderboard page with all the top scores.
 
@@ -13,8 +13,8 @@ the answer. After all the questions are answered the user is directed to a leade
 ### Strategy
 - Design an app for those interested in solving logic based riddles. 
 - As a user I would expect to be asked a question. If I answered correctly, I would receive some form of points and move onto the next 
-question. If I answer incorrectly, I would expect to see negative points and be able to try and guess the answer again. If I couldn't guess the answer I'd 
-expect to be able to skip to the next question.
+question. If I answer incorrectly, I would expect to see no points and be able to try and guess the answer again. If I couldn't guess the answer I'd 
+expect to be able to skip to the next question. To see how my score compares to everyone else, a leaderboard should show those results.
 
 ### Scope
 #### features
@@ -38,7 +38,7 @@ scoring.
 
 ##### leaderboard page
 - Once the user has been through all of the questions, the page gets redirected to the leaderboard.
-- This show the users final score and a different message will display if they got on the leaderboard or not.
+- This will show the users final score and a different message will display if they got on the leaderboard or not.
 - A table shows the top ten scores and the name of the user that obtained that score.
 
 ### Wire Frames
@@ -115,7 +115,7 @@ The manual test involved checking:
 - The welcome message fades away after 2 seconds.
 - The "rules" button toggles the rules box as well as the "close" button only hides the box.
 - Submitting an empty input field redirects to the same page and keeps any incorrect answers if there are any. 
-- Entering a incorrect answer displays the incorrect answer on the redirected page screen and stores it in the incorrect guesses section.
+- Entering a incorrect answer displays the incorrect answer on the redirected page.
 - Entering an incorrect answer 5 times redirects to the next question. The redirected page displays a message for 2 seconds saying " 'answer' is incorrect. question skipped, +0 points", incorrect answers are cleared.
 - Answering correctly redirects to the next question, adds (10 - (the number of incorrect guesses * 2)) to the score and displays a 2 second message saying "'answer' is correct +'num' points".
 - On the last question: answering correctly, skipping or answering incorrectly 5 times redirects to the leaderboard screen.
@@ -125,8 +125,8 @@ The manual test involved checking:
 ##### leaderboard.html
 The manual test involved checking:
 - The users file for incorrect answers is deleted.
-- If the users final score is the score is greater than the 10th position on the leaderboard, a message displays saying well done for making the leaderboard. If the score is less
-than the 10th position, a message displays saying sorry you didn't make the leaderboard.
+- If the users final score is greater than the 10th position on the leaderboard, a message displays saying "well done for making the leaderboard". If the score is less
+than the 10th position, a message displays saying "sorry you didn't make the leaderboard".
 - The leaderboard displays the top ten scores 
 - If the user tries to go back to the last question, the page redirects to the index(home) page.
 - All links work and redirect to the appropriate pages.
@@ -143,7 +143,7 @@ than the 10th position, a message displays saying sorry you didn't make the lead
 
 ###### note 
 - Going backwards from the leaderboard page went back to the last question. However if the user tried to answer again, then the page redirected back to the index(home) page.
-I don't find this a problem because the user stil cannot cheat and change their score.
+I don't find this a problem because the user still cannot cheat and change their score.
 
 ##### Safari
 ###### Fails 
@@ -152,7 +152,7 @@ I don't find this a problem because the user stil cannot cheat and change their 
 
 ###### note 
 - Going backwards from the leaderboard page went back to the last question. However if the user tried to answer again, then the page redirected back to the index(home) page.
-I don't find this a problem because the user stil cannot cheat and change their score.
+I don't find this a problem because the user still cannot cheat and change their score.
 
 ##### Opera
 - All passed
@@ -176,7 +176,7 @@ to heroku that I found problems when it was running python 3.
 
 ##### Multiple players
 - I originally had a incorrect_answers.txt file. When multiple users were playing at the same time, incorrect answers that belonged to one user would appear for another. 
-- To solve this, when the user inputs a username, a incorrect_answers_username.txt file is created. This works well for multiple users and their individual answers.
+- To solve this, when the user inputs a username, a incorrect_answers_"username".txt file is created. This works well for multiple users and their individual answers.
 
 ##### Going back
 - Another frustration during this project was going back. If I answered incorrectly on one question and then decided to go back to a previous question, the incorrect answer would display in the 
@@ -192,7 +192,7 @@ Then I searched for a code that checked if the users file exists. Then in an if 
 - One of the more frustrating issues was keeping track of a score. Originally if the user answered the question correctly, I expected a count to += 1. When the answer was submited ("POST") the count would increase to 1.
 However when the page redirected ("GET") the count would reset back to 0. 
 - My next idea was adding "1" to a count.txt file and reading the length when a question was answered correctly, but this became a problem when multiple users were playing. It would affect the scores and questions other
--users had where using the same points sheet.
+users had when using the same points sheet.
 - I had seen on another project that score(count) was recorder in the endpoint. I used this method for most of my project when building it. I wasn't 
 really happy with this method because I could cheat by manually entering a score in the endpoint, which would end up on the leaderboard. 
 - While searching through the slack forum, other students were wrting about sessions and user sessions. I looked more into this and found that sessions would keep a count.
@@ -200,7 +200,7 @@ really happy with this method because I could cheat by manually entering a score
 - https://www.youtube.com/watch?v=T1ZVyY1LWOg
 
 ##### Student testing
-- I allowed friends, family and other code institute students to test my project. I only constructive criticism I recieved was from fellow students about the style of scoring. Originally I had each correct answer 
+- I allowed friends, family and other code institute students to test my project. The only constructive criticism I recieved was from fellow students about the style of scoring. Originally I had each correct answer 
 being worth 10 points, incorrect answers were worth -1 point and a skip was worth -5 points. This scoring system allowed the user to achieved an overall negative score which didn't seen right by others.
 Instead of losing points on skips and incorrect answers, the scoring changed so that if the answer was correctly guessed, the question would be worth 10 points and 2 points were deducted for each incorrect answer.
 So if the user guessed incorrectly 5 times or skipped they would be redirected to the next question and lose no points.
@@ -237,10 +237,10 @@ which was difficult to identify but something small that was causing the error.
 - Linked the GitHub repository to the Heroku app.
 
 ##### pip3 freeze --local > requirements.txt
-- Tells Heroku what languages the project is using and creates a file with the dependencies.
+- Tells Heroku what languages the project is using and creates a file with those dependencies.
 
 ##### echo web: python run.py >procfile
-- Tells Heroku that this project is a web app and the "run.py" is going the run it. 
+- Tells Heroku that this project is a web app and that "run.py" is going the run it. 
 
 ##### ps:scale web=1
 
@@ -290,7 +290,7 @@ http://www.compciv.org/guides/python/fundamentals/sorting-collections-with-sorte
 - https://pixabay.com/en/earth-labyrinth-center-way-out-2293192/
 
 ##### Maze Icon
-- I changed the color and before it was in greyscale
+- I changed the color. Before it was in greyscale
 - https://pixabay.com/en/maze-icon-symbol-27465/
 
 ##### Font Awesome GitHub Icon
