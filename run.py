@@ -195,6 +195,7 @@ def conundrum(username):
     display_points = session["display_points"]
     last_incorrect_answer = session['last_incorrect_answer']
     message_display_number = session["message_display_number"]
+    
     # goes with os.remove(userfile) to delete the user file when the
     # leaderboard is reached.
     userfile = "data/incorrect_answers_" + username + ".txt"
@@ -228,6 +229,8 @@ def conundrum(username):
                     # the leaderboard.txt file
                     score = score + correct_answer_score(username)
                     final_score(username, score)
+                    session["message_display_number"] = 0
+                    session["display_points"] = correct_answer_score(username)
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
 
@@ -248,15 +251,16 @@ def conundrum(username):
                     # redirect to the leaderboard page.
                     score = score
                     final_score(username, score)
+                    session["message_display_number"] = 1
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
 
             elif number_of_incorrect_answers(username) == 4:
 
                 if page_number < number_of_questions():
+                    write_incorrect_answer(username)
                     session['page_number'] += 1
                     session["message_display_number"] = 2
-                    write_incorrect_answer(username)
                     session['last_incorrect_answer'] = read_incorrect_answers(username)[-1]
                     clear_incorrect_answers(username)
                     return redirect(url_for('conundrum', username=username))
@@ -266,6 +270,9 @@ def conundrum(username):
                     # amount of questions, take the negative scores, write to
                     # the leaderboard file and
                     # redirect to the leaderboard page.
+                    write_incorrect_answer(username)
+                    session["message_display_number"] = 2
+                    session['last_incorrect_answer'] = read_incorrect_answers(username)[-1]
                     final_score(username, score)
                     os.remove(userfile)
                     return redirect(url_for('leaderboard', username=username))
@@ -305,12 +312,18 @@ def conundrum(username):
 
 @app.route('/conundrum/leaderboard/<username>')
 def leaderboard(username):
+    display_points = session["display_points"]
+    last_incorrect_answer = session['last_incorrect_answer']
+    message_display_number = session["message_display_number"]
     # prints out the leaderboard scores and usernames
     results = leader_results()
     return render_template("leaderboard.html", results=results,
-                                                user_final_score=leaderboard_final_score(),
                                                 username=username,
-                                                number_in_leaderboard=number_of_lines_in_leaderboard(),
-                                                total_points=(number_of_questions() + 1) * 10)
+                                                display_points=display_points,
+                                                user_final_score=leaderboard_final_score(),
+                                                last_incorrect_answer=last_incorrect_answer,
+                                                message_display_number=message_display_number,
+                                                total_points=(number_of_questions() + 1) * 10,
+                                                number_in_leaderboard=number_of_lines_in_leaderboard())
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'), port=int(os.getenv('PORT')), debug=False)

@@ -375,6 +375,10 @@ tr {
     padding-bottom: 15px;
 }
 
+.leaderboard_message {
+    top: 250px;
+}
+
 .user-score-container {
     display: inline-block;
     background-color: rgba(255, 255, 255, 0.5);

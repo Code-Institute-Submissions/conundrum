@@ -6,7 +6,13 @@
         <h2 class='leaderboard-heading'>LeaderBoard</h2>
     </div>
     
-    {% if username != "user" %}
+    
+    <!--If the username is user4321 than don't display this section else display it. If the user has not completed the game and click to go to the
+    leaderboard screen this section will not display showing user scores.-->
+    {% if username != "user4321" %}
+    
+    <!--If the users score makes it under or equal to the 20th line in leaderboard.txt the first if statement we appear
+    else the second statment will appear-->
     <div class="user-score-container">
         <div class="users-score centering">
             
@@ -28,6 +34,30 @@
             {% endif %}
             
             {% endif %}
+            
+            <!--If the message_display_number is equal to its corresponding session['message_display_number']
+            number from run.py than display this message -->
+            
+            <div class="display_positive_negative_points leaderboard_message">
+                
+                {% if message_display_number == 0 %}
+                <div class="inner_positive_negative_points">
+                    <p class="positive_points"> Skull is correct<br> +{{ display_points }} points.<br>GameOver</p>
+                </div>
+                {% endif %} 
+                
+                {% if message_display_number == 1 %}
+                <div class="inner_positive_negative_points">
+                    <p class="negative_points"> Question Skipped<br>+0 Points<br>GameOver</p>
+                </div>
+                {% endif %}
+                {% if message_display_number == 2 %}
+                <div class="inner_positive_negative_points">
+                    <p class="negative_points"> {{ last_incorrect_answer }} is incorrect.<br>+0 Points<br>GameOver</p>
+                </div>
+                {% endif %}
+                
+            </div>
             
         </div>
     </div>
