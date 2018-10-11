@@ -63,14 +63,34 @@ h4 {
 }
 
 button {
-    border-radius: 15px;
-    width: 70px;
+    border-radius: 5px;
+    border:2px solid rgba(107, 109, 127, 1);
+    width: 80px;
+    height: 30px;
+    background-color: rgba(255,255,255,.5);
+    box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.75);
+    font-weight: bold;
 }
 
 input[type=submit] {
-    border-radius: 15px;
     margin: 0 10px 0 10px;
-    width: 70px;
+    border-radius: 5px;
+    border:2px solid rgba(107, 109, 127, 1);
+    width: 100px;
+    height: 30px;
+    background-color: rgba(255,255,255,.5);
+    box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.75);
+    font-weight: bold;
+}
+
+input[type=submit]:hover, .game-rules-ok-btn:hover, .rules-btn:hover {
+    background-color: rgba(0,0,0,.4);
+    color: rgba(255,255,255,1);
+}
+
+input[type=text] {
+    border: 2px solid rgba(107, 109, 127, 1);
+    border-radius: 5px;
 }
 
 /*---------base.html------------*/
@@ -172,6 +192,7 @@ input[name=username] {
 }
 
 #name-required {
+    margin-top: 15px;
     color: red;
 }
 
@@ -190,6 +211,10 @@ input[name=username] {
     z-index: 1;
     box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
     display: none;
+}
+
+.rules-btn {
+    margin-top: -3px;
 }
 
 .game-rules-ok-btn {
@@ -232,6 +257,10 @@ input[name=username] {
 
 .conundrum-row-1 {
     margin-top: 2.5%;
+}
+
+.attempts{
+    line-height: 25px
 }
 
 .rule-points-guesses {

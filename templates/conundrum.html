@@ -7,7 +7,7 @@
     <div class="rule-points-guesses col-xs-offset-2 col-xs-8">
 
         <div class="negative-points hidden-xs centering col-xs-12 col-sm-4">
-            <p><b>Attempts Left:</b> {{ guesses_remaining }}</p>
+            <p class='attempts'><b>Attempts Left:</b> {{ guesses_remaining }}</p>
         </div>
         
         <div class="centering col-xs-12 col-sm-4">
@@ -125,7 +125,7 @@
                 <div class="centering">
                     
                     <form method="POST" class="inline-block">
-                        <input type="text" name="answer" placeholder="Enter your answer here." ><br>
+                        <input type="text" name="answer" placeholder="Enter your answer here."><br>
                         <input type="submit" name="submit" value="Submit" >
                         <input type="submit" name="skip" value="Skip" >
                     </form>
