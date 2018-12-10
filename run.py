@@ -3,7 +3,7 @@ from flask import Flask, render_template, redirect, request, url_for, session
 import os.path
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.environ.get('SECRET_KEY')
 
 
 # function to write or append to files
