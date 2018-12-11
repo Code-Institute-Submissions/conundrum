@@ -5,8 +5,30 @@ The requirement of this project were to create a quiz game that would ask the us
 the next question. If the answer to the question is incorrect, then that incorrect answer would be displayed for the user to see. The user than would be able to have another shot at guessing 
 the answer. After all the questions are answered the user is directed to a leaderboard page with all the top scores.
 
-- Heroku app https://conundrum.herokuapp.com/
-- GitHub Repository https://github.com/brettcutt/conundrum
+- Heroku app 
+  - https://conundrum.herokuapp.com/
+- GitHub Repository 
+  - https://github.com/brettcutt/conundrum
+
+## Table of Contents
+
+1. [UX](https://github.com/brettcutt/conundrum/blob/master/README.md#ux)
+   - [Strategy](https://github.com/brettcutt/conundrum/blob/master/README.md#strategy)
+   - [Features](https://github.com/brettcutt/conundrum/blob/master/README.md#features)
+       - [Header and Footer](https://github.com/brettcutt/conundrum/blob/master/README.md#header-and-footer)
+       - [index](https://github.com/brettcutt/conundrum/blob/master/README.md#index)
+       - [Question page](https://github.com/brettcutt/conundrum/blob/master/README.md#question-page)
+       - [leaderboard page](https://github.com/brettcutt/conundrum/blob/master/README.md#leaderboard-page)
+    - [Wire Frames](https://github.com/brettcutt/conundrum/blob/master/README.md#wire-frames)
+2. [Technologies, Libraries and Languages](https://github.com/brettcutt/conundrum/blob/master/README.md#technologies-libraries-and-languages)
+3. [Testing](https://github.com/brettcutt/conundrum/blob/master/README.md#testing)
+   - [Manual Testing](https://github.com/brettcutt/conundrum/blob/master/README.md#manual-testing)
+   - [Automated Tests](https://github.com/brettcutt/conundrum/blob/master/README.md#automated-tests)
+   - [Testing Issues](https://github.com/brettcutt/conundrum/blob/master/README.md#testing-issues)
+   - [Validation](https://github.com/brettcutt/conundrum/blob/master/README.md#validation)
+4. [Deployment](https://github.com/brettcutt/conundrum/blob/master/README.md#deployment)
+5. [Running the code locally](https://github.com/brettcutt/conundrum/blob/master/README.md#running-the-code-locally)
+6. [Credits](https://github.com/brettcutt/conundrum/blob/master/README.md#credits)
 
 ## UX
 
@@ -63,8 +85,7 @@ Was used to:
 - http://getbootstrap.com/
 
 ##### Flask
-Was used to:
-- Implement python into html 5.
+- A micro web framework written in Python.
 - http://flask.pocoo.org/
 
 ##### HTML 5
@@ -90,6 +111,7 @@ Was used for:
 
 #### Automated Testing
 The automated test involves:
+- If the project is run locally, the run the tests enter `python test.py` and `python -m unittest`
 - Checking if a txt file has content with self.assertGreater(len(file), 0)
 - Making sure a file contained the correct content with "assetIn" and checking for content that isn't in the file with "assertNotIn".
 - Check that there are the same amount of answers as there are questions.
@@ -99,210 +121,94 @@ or skip returns a string saying they've been redirected. A incorrect answer agai
 - Click [here](https://github.com/brettcutt/conundrum/blob/master/test.py) to see my automated tests 
 
 #### Manual Testing
-
-##### Index.html and base.html(header and footer)
-The manual test involved checking: 
-- The maze icon redirects back the the index (home) page.
-- The "Home" navigation link redirects back to the index(home) page.
-- The "Leaderboard" navigation link redirects to the leaderboard(leaderboard.html) page.
-- The username input field when submitted with no text, rerenders the index.html page and returns a string saying to enter a user name.
-- That entering a username and submitting, redirects to the conundrum.html page.
-- Clicking the GitHub icon opens a new page to my GitHub repository.
-
-##### conundrum.html
-The manual test involved checking:
-- The users file for incorrect answers is created.
-- The welcome message fades away after 2 seconds.
-- The "rules" button toggles the rules box as well as the "close" button only hides the box.
-- Submitting an empty input field redirects to the same page and keeps any incorrect answers if there are any. 
-- Entering a incorrect answer displays the incorrect answer on the redirected page.
-- Entering an incorrect answer 5 times redirects to the next question. The redirected page displays a message for 2 seconds saying " 'answer' is incorrect. question skipped, +0 points", incorrect answers are cleared.
-- Answering correctly redirects to the next question, adds (10 - (the number of incorrect guesses * 2)) to the score and displays a 2 second message saying "'answer' is correct +'num' points".
-- On the last question: answering correctly, skipping or answering incorrectly 5 times redirects to the leaderboard screen.
-- All links work and redirect to the appropriate pages.
-- The different combination of correct answers, incorrect answers, skips all total the score up appropriately.
-
-##### leaderboard.html
-The manual test involved checking:
-- The users file for incorrect answers is deleted.
-- If the users final score is greater than the 10th position on the leaderboard, a message displays saying "well done for making the leaderboard". If the score is less
-than the 10th position, a message displays saying "sorry you didn't make the leaderboard".
-- The leaderboard displays the top ten scores 
-- If the user tries to go back to the last question, the page redirects to the index(home) page.
-- All links work and redirect to the appropriate pages.
-
-#### Above tests on the following browsers/ devices
-##### Chrome
-- All passed
-
-##### Edge
-- All passed
-
-##### Fire Fox
-- All passed
-
-###### note 
-- Going backwards from the leaderboard page went back to the last question. However if the user tried to answer again, then the page redirected back to the index(home) page.
-I don't find this a problem because the user still cannot cheat and change their score.
-
-##### Safari
-###### Fails 
-- The GitHub icon couldn't secure a connection to the server.
-- All other tests passed.
-
-###### note 
-- Going backwards from the leaderboard page went back to the last question. However if the user tried to answer again, then the page redirected back to the index(home) page.
-I don't find this a problem because the user still cannot cheat and change their score.
-
-##### Opera
-- All passed
-
-##### My Mobile phone running Chrome
-- All Passed
-
-#### Responsiveness
-- Using the developer tools in chrome and my own personal mobile phone, all the device selections were used to check the responsiveness of this project.
-- Every part of the project is appropriately responsive.
-
-#### Multiple players
-- To ensure that the project ran with multiple player and didn't clash, I used my computer and a friends computer, logged in as different users and played the project at the same time. 
-- There was no outcome where a player was affected by another.
-
-#### Testing Issues
-##### Reading file from Heroku 
-- My incorrect answers were not being display on the conundrum.html page, which I found the problem came from how it was being read as
-a "a+" file. I created another "r" type reading file to solve this. Cloud 9 runs python 2.6.7 by default and my project worked fine on that, but it wasn't until I pushed my project 
-to heroku that I found problems when it was running python 3.
-
-##### Multiple players
-- I originally had a incorrect_answers.txt file. When multiple users were playing at the same time, incorrect answers that belonged to one user would appear for another. 
-- To solve this, when the user inputs a username, a incorrect_answers_"username".txt file is created. This works well for multiple users and their individual answers.
-
-##### Going back
-- Another frustration during this project was going back. If I answered incorrectly on one question and then decided to go back to a previous question, the incorrect answer would display in the 
-incorrect answers section of that question. Sessions seemed to solve this issue. When the user tries to go back they will stay on the same question, and multiple back requests redirects to the index(home) page.
-- When users get to the leaderboard, there was the option that they could go back to the last question. I wanted to make sure they couldn't go back and if the did try, they 
-would be directed to the index page. 
-- I used the "os.remove(userfile)" code to delete the users incorrect_answers_username.txt file once they reached the leaderboard screen. 
-Then I searched for a code that checked if the users file exists. Then in an if statement, if the users file doesn't exist they will be redirected to the index page.
-- https://stackoverflow.com/questions/82831/how-do-i-check-whether-a-file-exists
-- os.path.exists(userfile)
-
-##### Keeping a count
-- One of the more frustrating issues was keeping track of a score. Originally if the user answered the question correctly, I expected a count to += 1. When the answer was submited ("POST") the count would increase to 1.
-However when the page redirected ("GET") the count would reset back to 0. 
-- My next idea was adding "1" to a count.txt file and reading the length when a question was answered correctly, but this became a problem when multiple users were playing. It would affect the scores and questions other
-users had when using the same points sheet.
-- I had seen on another project that score(count) was recorder in the endpoint. I used this method for most of my project when building it. I wasn't 
-really happy with this method because I could cheat by manually entering a score in the endpoint, which would end up on the leaderboard. 
-- While searching through the slack forum, other students were wrting about sessions and user sessions. I looked more into this and found that sessions would keep a count.
-- https://stackoverflow.com/questions/42671298/python-counter-add-and-subtract
-- https://www.youtube.com/watch?v=T1ZVyY1LWOg
-
-##### Student testing
-- I allowed friends, family and other code institute students to test my project. The only constructive criticism I recieved was from fellow students about the style of scoring. Originally I had each correct answer 
-being worth 10 points, incorrect answers were worth -1 point and a skip was worth -5 points. This scoring system allowed the user to achieved an overall negative score which didn't seen right by others.
-Instead of losing points on skips and incorrect answers, the scoring changed so that if the answer was correctly guessed, the question would be worth 10 points and 2 points were deducted for each incorrect answer.
-So if the user guessed incorrectly 5 times or skipped they would be redirected to the next question and lose no points.
-
-##### UnicodeDecodeError
-- After copying and pasting riddles in the quetions.txt file, I kept on receiving an error on the second question. This was due to a foreign apostrophe character,
-which was difficult to identify but something small that was causing the error. 
+To see the manual test file click [here](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md).
 
 ### Code validation
-#### CSS
+**CSS**
 - Using the jigsaw validator, the main.css file passed with no errors.
 
-#### HTML 5
+**HTML 5**
 - Using W3C validator, the files returned no html5 related errors. Flask related errors were returned which is expected. 
 
-#### Python
+**Python**
 - There are no errors. Only warning about lines being too long.
 
 ## Deployment
-#### In heroku
-- Created a new app
+**In heroku**
+- Created a new app called `conundrum`
 
-#### In the terminal command line enter:
-##### heroku login
-- Entered username and password.
+- **In the terminal command line entered:**
+  - `heroku login` Entered username and password.   
+  - `git init` to Intilised a git repository.
+  - `git remote add heroku https://conundrum.herokuapp.com/` to link the GitHub repository to the Heroku app.
+  - `pip3 freeze --local > requirements.txt` Creates a .txt file which tells Heroku what dependencies the project is using.
+  - `echo web: python run.py >procfile` Tells Heroku that this project is a web app and that "run.py" is going the run it.
+  - `ps:scale web=1`
+  - `git add`
+  - `git commit -m "message"`
+  - `git push -u heroku master`
 
-##### cd conundrum/
-- Moved to the project directory.
+- **In heroku**
+  - Go to the project > setting > config vars
+    - `IP | 0.0.0.0`
+    - `PORT |  8080`
+    - `SECRET_KEY | <your secret key>`
+   - More > restart all dynos
 
-##### git init
-- Intilised a git repository.
-
-##### git remote add heroku https://conundrum.herokuapp.com/
-- Linked the GitHub repository to the Heroku app.
-
-##### pip3 freeze --local > requirements.txt
-- Tells Heroku what languages the project is using and creates a file with those dependencies.
-
-##### echo web: python run.py >procfile
-- Tells Heroku that this project is a web app and that "run.py" is going the run it. 
-
-##### ps:scale web=1
-
-##### git add
-##### git commit -m "message"
-##### git push -u heroku master
-- pushes the project to Heroku.
-
-#### In heroku
-##### Go to the project > setting > config vars
-- key = IP: value = 0.0.0.0
-- key = PORT: value = 8080
-
-##### More > restart all dynos
-
-##### The project can be found at https://conundrum.herokuapp.com/
+- **The project can be found at:** https://conundrum.herokuapp.com/
 
 ## Running the code locally
-### In the terminal command line enter:
-##### git clone https://github.com/brettcutt/conundrum.git
-##### sudo pip3 install flask
-- Installs Flask
- 
-##### Hit the run button on run.py
+
+- **In the terminal command line enter:**
+  - `git clone https://github.com/brettcutt/conundrum.git`
+  - `sudo pip3 install flask`
+
+- **Create a env.py file:**
+  - Inside type:
+    - `import os`
+    - `os.environ.setdefault('SECRET_KEY', '< your secrect key >')`
+
+- **In the terminal command line enter:**
+  - `python3 run.py`
+
 
 ## Credits
-### Content
-##### The riddles cames from the following:
-- https://www.braingle.com/brainteasers/104/who-makes-it-has-no-need-of-it.html
-- https://www.thesun.co.uk/fabulous/6885182/14-riddles-how-many-can-you-solve/
-- https://riddles.fyi/page/5/
+#### Content
+- **The riddles cames from the following:**
+  - https://www.braingle.com/brainteasers/104/who-makes-it-has-no-need-of-it.html
+  - https://www.thesun.co.uk/fabulous/6885182/14-riddles-how-many-can-you-solve/
+  - https://riddles.fyi/page/5/
 
-### Code
-##### random secret key, understanding sessions
-- https://www.youtube.com/watch?v=T1ZVyY1LWOg
-- https://stackoverflow.com/questions/42671298/python-counter-add-and-subtract
-- https://www.youtube.com/watch?v=T1ZVyY1LWOg
+#### Code
+- **random secret key, understanding sessions**
+  - https://www.youtube.com/watch?v=T1ZVyY1LWOg
+  - https://stackoverflow.com/questions/42671298/python-counter-add-and-subtract
+  - https://www.youtube.com/watch?v=T1ZVyY1LWOg
 
-##### Sorting the leaderboard
-http://www.compciv.org/guides/python/fundamentals/sorting-collections-with-sorted/
+- **Sorting the leaderboard**
+  - http://www.compciv.org/guides/python/fundamentals/sorting-collections-with-sorted/
 
-##### Making the welcome message and scores disappear
-- https://stackoverflow.com/questions/1911290/make-div-text-disappear-after-5-seconds-using-jquery
+- **Making the welcome message and scores disappear**
+   - https://stackoverflow.com/questions/1911290/make-div-text-disappear-after-5-seconds-using-jquery
 
-### Media
-##### background
-- https://pixabay.com/en/earth-labyrinth-center-way-out-2293192/
+#### Media
+- **background**
+  - https://pixabay.com/en/earth-labyrinth-center-way-out-2293192/
 
-##### Maze Icon
-- I changed the color. Before it was in greyscale
-- https://pixabay.com/en/maze-icon-symbol-27465/
+- **Maze Icon**
+  - I changed the color. Before it was in greyscale
+  - https://pixabay.com/en/maze-icon-symbol-27465/
 
-##### Font Awesome GitHub Icon
-- https://fontawesome.com/icons/github?style=brands
-- https://fontawesome.com/license
+- **Font Awesome GitHub Icon**
+  - https://fontawesome.com/icons/github?style=brands
+  - https://fontawesome.com/license
 
-### Acknowledgements
-##### My mentor Mossa Hassan
-- Showing me more ways of debugging and watching responses.
-- Recommending sites to research
-- httpstatuses.com
+#### Acknowledgements
+- **My mentor Mossa Hassan**
+  - Showing me more ways of debugging and watching responses.
+  - Recommending sites to research
+  - httpstatuses.com
 
-##### The Code Institute slack forum
-- Reading about other student questions, answers and problems greatly helps.
-- Good constructive criticism about the scoring from students Jo Wings and Eventyret.
+- **The Code Institute slack forum**
+  - Reading about other student questions, answers and problems greatly helps.
+  - Good constructive criticism about the scoring from students Jo Wings and Eventyret.
