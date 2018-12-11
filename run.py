@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, session
 import os.path
+#import env
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
@@ -156,7 +157,6 @@ def clear_incorrect_answers(username):
 # Index Page
 @app.route('/', methods=["GET", "POST"])
 def index():
-
     session['score'] = 0
     session['page_number'] = 0
     session['message_display_number'] = 0
