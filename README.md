@@ -1,9 +1,9 @@
 # Conundrum
 
 - This is the third milestone project for the Full-Stack software development course through Code Institute. I named my project Conundrum as that's exactly what the user will have to go through.
-The requirement of this project were to create a quiz game that would ask the user questions for them to answer. If the answer to the question is correct then the user would be directed to 
-the next question. If the answer to the question is incorrect, then that incorrect answer would be displayed for the user to see. The user than would be able to have another shot at guessing 
-the answer. After all the questions are answered the user is directed to a leaderboard page with all the top scores.
+The requirement for this project was to create a quiz game that would ask questions to the user. If the answer to the question is correct then the user would be directed to 
+the next question. If the answer to the question is incorrect, then that incorrect answer would be displayed for the user to see. The user then would be able to have another shot at guessing 
+the answer. After all the questions are answered, the user is directed to a leaderboard page with all the top scores.
 
 - Heroku app 
   - https://conundrum.herokuapp.com/
@@ -22,10 +22,9 @@ the answer. After all the questions are answered the user is directed to a leade
     - [Wire Frames](https://github.com/brettcutt/conundrum/blob/master/README.md#wire-frames)
 2. [Technologies, Libraries and Languages](https://github.com/brettcutt/conundrum/blob/master/README.md#technologies-libraries-and-languages)
 3. [Testing](https://github.com/brettcutt/conundrum/blob/master/README.md#testing)
+   - [Automated Tests](https://github.com/brettcutt/conundrum/blob/master/README.md#automated-testing)
    - [Manual Testing](https://github.com/brettcutt/conundrum/blob/master/README.md#manual-testing)
-   - [Automated Tests](https://github.com/brettcutt/conundrum/blob/master/README.md#automated-tests)
-   - [Testing Issues](https://github.com/brettcutt/conundrum/blob/master/README.md#testing-issues)
-   - [Validation](https://github.com/brettcutt/conundrum/blob/master/README.md#validation)
+   - [Validation](https://github.com/brettcutt/conundrum/blob/master/README.md#code-validation)
 4. [Deployment](https://github.com/brettcutt/conundrum/blob/master/README.md#deployment)
 5. [Running the code locally](https://github.com/brettcutt/conundrum/blob/master/README.md#running-the-code-locally)
 6. [Credits](https://github.com/brettcutt/conundrum/blob/master/README.md#credits)
@@ -111,13 +110,7 @@ Was used for:
 
 #### Automated Testing
 The automated test involves:
-- If the project is run locally, the run the tests enter `python test.py` and `python -m unittest`
-- Checking if a txt file has content with self.assertGreater(len(file), 0)
-- Making sure a file contained the correct content with "assetIn" and checking for content that isn't in the file with "assertNotIn".
-- Check that there are the same amount of answers as there are questions.
-- The "scoring test" was based on the original scoring. This changed towards the end of the project after other students pointed out a better alternative.
-- Making sure that the scoring works. If the user correctly answers the question, they get +10 points. An Incorrect answer is -1 point and a skip is -5 points. If the user is on the last page, a correct answer
-or skip returns a string saying they've been redirected. A incorrect answer again only deduct 1 point.
+- If the project is ran locally, to run the tests enter `python test.py` and `python -m unittest`
 - Click [here](https://github.com/brettcutt/conundrum/blob/master/test.py) to see my automated tests 
 
 #### Manual Testing
@@ -131,7 +124,7 @@ To see the manual test file click [here](https://github.com/brettcutt/conundrum/
 - Using W3C validator, the files returned no html5 related errors. Flask related errors were returned which is expected. 
 
 **Python**
-- There are no errors. Only warning about lines being too long.
+- There are no errors.
 
 ## Deployment
 **In heroku**
