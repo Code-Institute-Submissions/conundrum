@@ -4,7 +4,7 @@
 
 - [Manual Tests](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md#manual-tests)
   - [Homepage, header and footer](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md#homepage-header-and-footer)
-  - [Conundrum page](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md#conundrun-page)
+  - [Conundrum page](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md#conundrum-page)
   - [Leaderboard page](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md#leaderboard-page)
 - [Checklist](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md#checklist)
 - [Responsiveness](https://github.com/brettcutt/conundrum/blob/master/manual-testing.md#responsiveness)
